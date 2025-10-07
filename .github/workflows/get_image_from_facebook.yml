@@ -29,10 +29,9 @@ jobs:
         FACEBOOK_EMAIL: ${{ secrets.FACEBOOK_EMAIL }}
         FACEBOOK_PASSWORD: ${{ secrets.FACEBOOK_PASSWORD }}
       run: |
-        cd scripts
         pip install --upgrade pip
-        pip install -r requirements.txt
-        python get_image_from_facebook.py
+        pip install -r scripts/requirements.txt
+        python scripts/get_image_from_facebook.py
         
     - name: Commit and push changes
       run: |
