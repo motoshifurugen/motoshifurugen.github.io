@@ -42,6 +42,10 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add images/
-        git diff --staged --quiet || git commit -m "Update Facebook images [skip ci]"
-        git push
+        if [ -d "images" ]; then
+          git add images/
+          git diff --staged --quiet || git commit -m "Update Facebook images [skip ci]"
+          git push
+        else
+          echo "No images directory found, skipping commit"
+        fi
