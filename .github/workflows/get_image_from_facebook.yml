@@ -24,18 +24,14 @@ jobs:
     - name: Install Chrome and ChromeDriver
       uses: browser-actions/setup-chrome@latest
       
-    - name: Install dependencies
-      run: |
-        cd scripts
-        pip install --upgrade pip
-        pip install -r requirements.txt
-        
     - name: Run get image from facebook script
       env:
         FACEBOOK_EMAIL: ${{ secrets.FACEBOOK_EMAIL }}
         FACEBOOK_PASSWORD: ${{ secrets.FACEBOOK_PASSWORD }}
       run: |
         cd scripts
+        pip install --upgrade pip
+        pip install -r requirements.txt
         python get_image_from_facebook.py
         
     - name: Commit and push changes
