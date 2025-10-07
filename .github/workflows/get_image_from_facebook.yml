@@ -37,3 +37,11 @@ jobs:
       run: |
         cd scripts
         python get_image_from_facebook.py
+        
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add images/
+        git diff --staged --quiet || git commit -m "Update Facebook images [skip ci]"
+        git push

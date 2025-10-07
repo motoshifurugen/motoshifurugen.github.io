@@ -6,6 +6,8 @@ Seleniumを使用してFacebookの写真ページから画像を取得するス�
 import os
 import time
 import requests
+import hashlib
+from datetime import datetime
 from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -47,27 +49,56 @@ def main():
         # 写真要素を取得
         photos = driver.find_elements(By.CSS_SELECTOR, "img[src*='scontent']")[:5]
         
-        # 既存ファイルをチェック
-        existing = {f.name for f in save_dir.glob("photo_*.jpg")}
+        # 既存ファイルのハッシュ値をチェック
+        existing_hashes = set()
+        for file_path in save_dir.glob("*.jpg"):
+            try:
+                with open(file_path, 'rb') as f:
+                    file_hash = hashlib.md5(f.read()).hexdigest()
+                    existing_hashes.add(file_hash)
+            except:
+                continue
         
         # 画像をダウンロード
+        downloaded_count = 0
         for i, img in enumerate(photos):
-            filename = f"photo_{i+1}.jpg"
-            if filename in existing:
-                print(f"スキップ: {filename}")
+            img_src = img.get_attribute('src')
+            if not img_src:
                 continue
                 
-            img_src = img.get_attribute('src')
-            if img_src:
-                # 高解像度に変換
-                if 's720x720' in img_src:
-                    img_src = img_src.replace('s720x720', 's2048x2048')
-                
-                # ダウンロード
+            # 高解像度に変換
+            if 's720x720' in img_src:
+                img_src = img_src.replace('s720x720', 's2048x2048')
+            
+            # 画像をダウンロードしてハッシュ値を計算
+            try:
                 response = requests.get(img_src)
+                response.raise_for_status()
+                image_data = response.content
+                
+                # ハッシュ値を計算
+                image_hash = hashlib.md5(image_data).hexdigest()
+                
+                # 重複チェック
+                if image_hash in existing_hashes:
+                    print(f"スキップ: 既存の画像 (ハッシュ: {image_hash[:8]}...)")
+                    continue
+                
+                # ファイル名を生成（タイムスタンプ + ハッシュ）
+                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                filename = f"photo_{timestamp}_{image_hash[:8]}.jpg"
+                
+                # 保存
                 with open(save_dir / filename, 'wb') as f:
-                    f.write(response.content)
+                    f.write(image_data)
                 print(f"保存: {filename}")
+                downloaded_count += 1
+                
+            except Exception as e:
+                print(f"画像 {i+1} のダウンロードに失敗: {e}")
+                continue
+        
+        print(f"新規ダウンロード: {downloaded_count}件")
         
     except Exception as e:
         print(f"エラー: {e}")
