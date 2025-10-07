@@ -1,0 +1,42 @@
+name: Get Image From Facebook
+
+on:
+  # 手動実行
+  workflow_dispatch:
+  
+  # 定期実行（デフォルトは毎日午前9時 JST）
+  schedule:
+    - cron: '0 0 * * *'  # UTC 0:00 = JST 9:00
+
+jobs:
+  get-image-from-facebook:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install Chrome
+      uses: browser-actions/setup-chrome@latest
+      
+    - name: Install ChromeDriver
+      uses: browser-actions/setup-chromedriver@latest
+      
+    - name: Install dependencies
+      run: |
+        cd scripts
+        pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Run get image from facebook script
+      env:
+        FACEBOOK_EMAIL: ${{ secrets.FACEBOOK_EMAIL }}
+        FACEBOOK_PASSWORD: ${{ secrets.FACEBOOK_PASSWORD }}
+      run: |
+        cd scripts
+        python get_image_from_facebook.py
