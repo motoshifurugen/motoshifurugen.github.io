@@ -15,7 +15,7 @@ from selenium.webdriver.chrome.options import Options
 from PIL import Image
 import io
 
-def resize_image_with_crop(image_data, target_size=(2048, 2048), quality=100):
+def resize_image_with_crop(image_data, target_size=(1024, 1024), quality=95):
     """
     画像をクロップして正方形に統一し、余白を最小化する
     """
@@ -111,11 +111,11 @@ def main():
                     print(f"スキップ: 既存の画像 (ハッシュ: {original_hash[:8]}...)")
                     continue
                 
-                # 画像サイズを統一（2048x2048、画質100%、クロップ方式）
+                # 画像サイズを統一（1024x1024、画質95%、クロップ方式）
                 resized_image_data = resize_image_with_crop(
                     original_image_data, 
-                    target_size=(2048, 2048), 
-                    quality=100
+                    target_size=(1024, 1024), 
+                    quality=95
                 )
                 
                 # ファイル名を生成
@@ -124,7 +124,7 @@ def main():
                 # 保存
                 with open(save_dir / filename, 'wb') as f:
                     f.write(resized_image_data)
-                print(f"保存: {filename} (2048x2048, 画質100%, クロップ方式)")
+                print(f"保存: {filename} (1024x1024, 画質95%, Web用最適化)")
                 downloaded_count += 1
                 
             except Exception as e:
