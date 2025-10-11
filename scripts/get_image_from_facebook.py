@@ -15,44 +15,36 @@ from selenium.webdriver.chrome.options import Options
 from PIL import Image
 import io
 
-def resize_image_with_aspect_ratio(image_data, target_size=(1024, 1024), quality=95):
+def resize_image_with_crop(image_data, target_size=(2048, 2048), quality=100):
     """
-    アスペクト比を保持しながら画像をリサイズする
+    画像をクロップして正方形に統一し、余白を最小化する
     """
     try:
         # 画像を開く
         image = Image.open(io.BytesIO(image_data))
         
-        # RGBに変換（RGBAやPモードの場合）
-        if image.mode in ('RGBA', 'LA', 'P'):
-            # 透明部分を白で埋める
-            background = Image.new('RGB', image.size, (255, 255, 255))
-            if image.mode == 'P':
-                image = image.convert('RGBA')
-            background.paste(image, mask=image.split()[-1] if image.mode == 'RGBA' else None)
-            image = background
-        elif image.mode != 'RGB':
+        # RGBに変換
+        if image.mode != 'RGB':
             image = image.convert('RGB')
         
-        # アスペクト比を保持してリサイズ
-        image.thumbnail(target_size, Image.Resampling.LANCZOS)
+        # 元の画像サイズを取得
+        width, height = image.size
         
-        # 中央に配置するための新しい画像を作成
-        new_image = Image.new('RGB', target_size, (255, 255, 255))
-        
-        # リサイズした画像を中央に配置
-        x = (target_size[0] - image.width) // 2
-        y = (target_size[1] - image.height) // 2
-        new_image.paste(image, (x, y))
+        # 正方形にクロップしてリサイズ
+        crop_size = min(width, height)
+        left = (width - crop_size) // 2
+        top = (height - crop_size) // 2
+        cropped_image = image.crop((left, top, left + crop_size, top + crop_size))
+        resized_image = cropped_image.resize(target_size, Image.Resampling.LANCZOS)
         
         # JPEGとして保存
         output = io.BytesIO()
-        new_image.save(output, format='JPEG', quality=quality, optimize=True)
+        resized_image.save(output, format='JPEG', quality=quality, optimize=True)
         return output.getvalue()
         
     except Exception as e:
         print(f"画像リサイズエラー: {e}")
-        return image_data  # エラーの場合は元の画像を返す
+        return image_data
 
 def main():
     # 環境変数から認証情報を取得
@@ -107,43 +99,36 @@ def main():
             if not img_src:
                 continue
                 
-            # 高解像度に変換
-            if 's720x720' in img_src:
-                img_src = img_src.replace('s720x720', 's2048x2048')
-            
-            # 画像をダウンロードしてハッシュ値を計算
+            # 画像をダウンロード
             try:
                 response = requests.get(img_src)
                 response.raise_for_status()
                 original_image_data = response.content
                 
-                # 画像サイズを統一（1024x1024、画質95%）
-                resized_image_data = resize_image_with_aspect_ratio(
-                    original_image_data, 
-                    target_size=(1024, 1024), 
-                    quality=95
-                )
-                
-                # ハッシュ値を計算（リサイズ後の画像で）
-                image_hash = hashlib.md5(resized_image_data).hexdigest()
-                
-                # 重複チェック
-                if image_hash in existing_hashes:
-                    print(f"スキップ: 既存の画像 (ハッシュ: {image_hash[:8]}...)")
+                # 重複チェック（元画像のハッシュで）
+                original_hash = hashlib.md5(original_image_data).hexdigest()
+                if original_hash in existing_hashes:
+                    print(f"スキップ: 既存の画像 (ハッシュ: {original_hash[:8]}...)")
                     continue
                 
-                # ファイル名を生成（タイムスタンプ + ハッシュ）
-                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                filename = f"photo_{timestamp}_{image_hash[:8]}.jpg"
+                # 画像サイズを統一（2048x2048、画質100%、クロップ方式）
+                resized_image_data = resize_image_with_crop(
+                    original_image_data, 
+                    target_size=(2048, 2048), 
+                    quality=100
+                )
+                
+                # ファイル名を生成
+                filename = f"photo_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{original_hash[:8]}.jpg"
                 
                 # 保存
                 with open(save_dir / filename, 'wb') as f:
                     f.write(resized_image_data)
-                print(f"保存: {filename} (1024x1024, 画質95%)")
+                print(f"保存: {filename} (2048x2048, 画質100%, クロップ方式)")
                 downloaded_count += 1
                 
             except Exception as e:
-                print(f"画像 {i+1} のダウンロードに失敗: {e}")
+                print(f"画像 {i+1} の処理に失敗: {e}")
                 continue
         
         print(f"新規ダウンロード: {downloaded_count}件")
