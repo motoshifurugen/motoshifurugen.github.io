@@ -12,6 +12,47 @@ from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from PIL import Image
+import io
+
+def resize_image_with_aspect_ratio(image_data, target_size=(1024, 1024), quality=95):
+    """
+    アスペクト比を保持しながら画像をリサイズする
+    """
+    try:
+        # 画像を開く
+        image = Image.open(io.BytesIO(image_data))
+        
+        # RGBに変換（RGBAやPモードの場合）
+        if image.mode in ('RGBA', 'LA', 'P'):
+            # 透明部分を白で埋める
+            background = Image.new('RGB', image.size, (255, 255, 255))
+            if image.mode == 'P':
+                image = image.convert('RGBA')
+            background.paste(image, mask=image.split()[-1] if image.mode == 'RGBA' else None)
+            image = background
+        elif image.mode != 'RGB':
+            image = image.convert('RGB')
+        
+        # アスペクト比を保持してリサイズ
+        image.thumbnail(target_size, Image.Resampling.LANCZOS)
+        
+        # 中央に配置するための新しい画像を作成
+        new_image = Image.new('RGB', target_size, (255, 255, 255))
+        
+        # リサイズした画像を中央に配置
+        x = (target_size[0] - image.width) // 2
+        y = (target_size[1] - image.height) // 2
+        new_image.paste(image, (x, y))
+        
+        # JPEGとして保存
+        output = io.BytesIO()
+        new_image.save(output, format='JPEG', quality=quality, optimize=True)
+        return output.getvalue()
+        
+    except Exception as e:
+        print(f"画像リサイズエラー: {e}")
+        return image_data  # エラーの場合は元の画像を返す
 
 def main():
     # 環境変数から認証情報を取得
@@ -46,8 +87,8 @@ def main():
         driver.get("https://www.facebook.com/profile.php?id=100054664260008&sk=photos")
         time.sleep(5)
         
-        # 写真要素を取得
-        photos = driver.find_elements(By.CSS_SELECTOR, "img[src*='scontent']")[:5]
+        # 写真要素を取得（ProfileAppSection_0配下の画像のみ）
+        photos = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] img[src*='scontent']")[:5]
         
         # 既存ファイルのハッシュ値をチェック
         existing_hashes = set()
@@ -74,10 +115,17 @@ def main():
             try:
                 response = requests.get(img_src)
                 response.raise_for_status()
-                image_data = response.content
+                original_image_data = response.content
                 
-                # ハッシュ値を計算
-                image_hash = hashlib.md5(image_data).hexdigest()
+                # 画像サイズを統一（1024x1024、画質95%）
+                resized_image_data = resize_image_with_aspect_ratio(
+                    original_image_data, 
+                    target_size=(1024, 1024), 
+                    quality=95
+                )
+                
+                # ハッシュ値を計算（リサイズ後の画像で）
+                image_hash = hashlib.md5(resized_image_data).hexdigest()
                 
                 # 重複チェック
                 if image_hash in existing_hashes:
@@ -90,8 +138,8 @@ def main():
                 
                 # 保存
                 with open(save_dir / filename, 'wb') as f:
-                    f.write(image_data)
-                print(f"保存: {filename}")
+                    f.write(resized_image_data)
+                print(f"保存: {filename} (1024x1024, 画質95%)")
                 downloaded_count += 1
                 
             except Exception as e:
