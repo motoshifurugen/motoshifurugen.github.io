@@ -86,8 +86,13 @@ def main():
         driver.get("https://www.facebook.com/profile.php?id=100054664260008&sk=photos")
         time.sleep(5)
         
-        # サムネ画像要素を取得（クリック可能な要素）
-        thumbnail_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")[:MAX_IMAGES]
+        # より多くの画像を表示するためにスクロール
+        for _ in range(2):
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(2)
+        
+        # サムネ画像要素を取得（クリック可能な要素）- より多く取得して重複を避ける
+        thumbnail_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")[:MAX_IMAGES * 3]
         
         # 既存ファイルのハッシュ値をチェック
         existing_hashes = set()
@@ -99,11 +104,19 @@ def main():
             except:
                 continue
         
-        # 画像をダウンロード
+        # 画像をダウンロード - 5枚の異なる画像を取得するまで続行
         downloaded_count = 0
+        processed_count = 0
+        
         for i, thumbnail_element in enumerate(thumbnail_elements):
+            # 5枚取得できたら終了
+            if downloaded_count >= MAX_IMAGES:
+                print(f"最大{MAX_IMAGES}枚の画像を取得しました")
+                break
+                
             try:
-                print(f"画像 {i+1} を処理中...")
+                processed_count += 1
+                print(f"画像 {processed_count} を処理中... (取得済み: {downloaded_count}/{MAX_IMAGES})")
                 
                 # サムネ画像をクリックして高画質画像を表示
                 driver.execute_script("arguments[0].click();", thumbnail_element)
@@ -121,7 +134,7 @@ def main():
                     img_src = high_res_img.get_attribute('src')
                     
                     if not img_src:
-                        print(f"画像 {i+1}: 高画質画像のURLが見つかりません")
+                        print(f"画像 {processed_count}: 高画質画像のURLが見つかりません")
                         close_modal_safely(driver)
                         continue
                     
@@ -156,16 +169,16 @@ def main():
                     close_modal_safely(driver)
                     
                 except TimeoutException:
-                    print(f"画像 {i+1}: 高画質画像の読み込みがタイムアウトしました")
+                    print(f"画像 {processed_count}: 高画質画像の読み込みがタイムアウトしました")
                     close_modal_safely(driver)
                     continue
                 except Exception as e:
-                    print(f"画像 {i+1}: 画像処理エラー: {e}")
+                    print(f"画像 {processed_count}: 画像処理エラー: {e}")
                     close_modal_safely(driver)
                     continue
                 
             except Exception as e:
-                print(f"画像 {i+1} の処理に失敗: {e}")
+                print(f"画像 {processed_count} の処理に失敗: {e}")
                 close_modal_safely(driver)
                 continue
         
