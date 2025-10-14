@@ -21,10 +21,10 @@ def cleanup_old_images(save_dir, max_files=5):
     """古い画像を削除して最大ファイル数を維持する"""
     image_files = list(save_dir.glob("*.jpg"))
     if len(image_files) > max_files:
-        # ファイル名でソート（日時順）
-        image_files.sort(key=lambda x: x.name)
-        # 古いファイルを削除
-        files_to_delete = image_files[:-max_files]
+        # ファイル名でソート（日時順、新しい順）
+        image_files.sort(key=lambda x: x.name, reverse=True)
+        # 古いファイルを削除（最新のmax_files個以外）
+        files_to_delete = image_files[max_files:]
         for file_path in files_to_delete:
             try:
                 file_path.unlink()
@@ -104,19 +104,18 @@ def main():
             except:
                 continue
         
-        # 画像をダウンロード - 5枚の異なる画像を取得するまで続行
+        # 既存の画像数を確認
+        existing_image_count = len(list(save_dir.glob("*.jpg")))
+        print(f"既存画像: {existing_image_count}枚")
+        
+        # 画像をダウンロード - 新しい画像があれば取得し、古い画像を削除
         downloaded_count = 0
         processed_count = 0
         
         for i, thumbnail_element in enumerate(thumbnail_elements):
-            # 5枚取得できたら終了
-            if downloaded_count >= MAX_IMAGES:
-                print(f"最大{MAX_IMAGES}枚の画像を取得しました")
-                break
-                
             try:
                 processed_count += 1
-                print(f"画像 {processed_count} を処理中... (取得済み: {downloaded_count}/{MAX_IMAGES})")
+                print(f"画像 {processed_count} を処理中... (新規取得: {downloaded_count}枚)")
                 
                 # サムネ画像をクリックして高画質画像を表示
                 driver.execute_script("arguments[0].click();", thumbnail_element)
@@ -162,8 +161,17 @@ def main():
                     # 既存ハッシュに追加（重複チェック用）
                     existing_hashes.add(original_hash)
                     
-                    # 古い画像をクリーンアップ
-                    cleanup_old_images(save_dir, MAX_IMAGES)
+                    # 新しい画像を保存したので、古い画像を1枚削除
+                    if existing_image_count + downloaded_count > MAX_IMAGES:
+                        # 最も古い画像を削除
+                        image_files = list(save_dir.glob("*.jpg"))
+                        image_files.sort(key=lambda x: x.name)  # 古い順にソート
+                        oldest_file = image_files[0]
+                        try:
+                            oldest_file.unlink()
+                            print(f"古い画像を削除: {oldest_file.name}")
+                        except Exception as e:
+                            print(f"古い画像の削除に失敗: {e}")
                     
                     # モーダルを安全に閉じる
                     close_modal_safely(driver)
