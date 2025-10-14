@@ -14,7 +14,40 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, ElementClickInterceptedException
+
+def cleanup_old_images(save_dir, max_files=5):
+    """古い画像を削除して最大ファイル数を維持する"""
+    image_files = list(save_dir.glob("*.jpg"))
+    if len(image_files) > max_files:
+        # ファイル名でソート（日時順）
+        image_files.sort(key=lambda x: x.name)
+        # 古いファイルを削除
+        files_to_delete = image_files[:-max_files]
+        for file_path in files_to_delete:
+            try:
+                file_path.unlink()
+                print(f"古い画像を削除: {file_path.name}")
+            except Exception as e:
+                print(f"ファイル削除エラー: {e}")
+
+def close_modal_safely(driver):
+    """モーダルを安全に閉じる"""
+    try:
+        # まず閉じるボタンを試す
+        close_button = driver.find_element(By.CSS_SELECTOR, "[aria-label='閉じる'][role='button']")
+        driver.execute_script("arguments[0].click();", close_button)
+        time.sleep(1)
+        return True
+    except (NoSuchElementException, ElementClickInterceptedException):
+        try:
+            # ESCキーで閉じる
+            driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE)
+            time.sleep(1)
+            return True
+        except Exception:
+            return False
 
 def main():
     # 環境変数から認証情報を取得
@@ -29,6 +62,9 @@ def main():
     save_dir = Path('images/facebook')
     save_dir.mkdir(parents=True, exist_ok=True)
     
+    # 最大5枚まで制限
+    MAX_IMAGES = 5
+    
     # Chrome WebDriverを設定
     options = Options()
     options.add_argument('--headless')
@@ -36,7 +72,7 @@ def main():
     options.add_argument('--disable-dev-shm-usage')
     
     driver = webdriver.Chrome(options=options)
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 15)  # 15秒の待機時間を設定
     
     try:
         # Facebookにログイン
@@ -51,7 +87,7 @@ def main():
         time.sleep(5)
         
         # サムネ画像要素を取得（クリック可能な要素）
-        thumbnail_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")[:5]
+        thumbnail_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")[:MAX_IMAGES]
         
         # 既存ファイルのハッシュ値をチェック
         existing_hashes = set()
@@ -79,13 +115,14 @@ def main():
                     high_res_img = wait.until(
                         EC.presence_of_element_located((By.CSS_SELECTOR, "div[data-pagelet='MediaViewerPhoto'] img[src*='scontent']"))
                     )
+                    
+                    # 画像の読み込み完了を待つ
+                    wait.until(lambda driver: high_res_img.get_attribute('complete') == 'true')
                     img_src = high_res_img.get_attribute('src')
                     
                     if not img_src:
                         print(f"画像 {i+1}: 高画質画像のURLが見つかりません")
-                        # モーダルを閉じる
-                        driver.find_element(By.CSS_SELECTOR, "[aria-label='閉じる'][role='button']").click()
-                        time.sleep(1)
+                        close_modal_safely(driver)
                         continue
                     
                     # 画像をダウンロード
@@ -97,9 +134,7 @@ def main():
                     original_hash = hashlib.md5(original_image_data).hexdigest()
                     if original_hash in existing_hashes:
                         print(f"スキップ: 既存の画像 (ハッシュ: {original_hash[:8]}...)")
-                        # モーダルを閉じる
-                        driver.find_element(By.CSS_SELECTOR, "[aria-label='閉じる'][role='button']").click()
-                        time.sleep(1)
+                        close_modal_safely(driver)
                         continue
                     
                     # ファイル名を生成
@@ -111,31 +146,27 @@ def main():
                     print(f"保存: {filename}")
                     downloaded_count += 1
                     
-                    # モーダルを閉じる
-                    driver.find_element(By.CSS_SELECTOR, "[aria-label='閉じる'][role='button']").click()
-                    time.sleep(1)
+                    # 既存ハッシュに追加（重複チェック用）
+                    existing_hashes.add(original_hash)
+                    
+                    # 古い画像をクリーンアップ
+                    cleanup_old_images(save_dir, MAX_IMAGES)
+                    
+                    # モーダルを安全に閉じる
+                    close_modal_safely(driver)
                     
                 except TimeoutException:
                     print(f"画像 {i+1}: 高画質画像の読み込みがタイムアウトしました")
-                    # モーダルを閉じる（ESCキーで閉じる）
-                    driver.find_element(By.TAG_NAME, 'body').send_keys('\ue00c')  # ESCキー
-                    time.sleep(1)
+                    close_modal_safely(driver)
                     continue
-                except NoSuchElementException:
-                    print(f"画像 {i+1}: モーダルの閉じるボタンが見つかりません")
-                    # ESCキーでモーダルを閉じる
-                    driver.find_element(By.TAG_NAME, 'body').send_keys('\ue00c')  # ESCキー
-                    time.sleep(1)
+                except Exception as e:
+                    print(f"画像 {i+1}: 画像処理エラー: {e}")
+                    close_modal_safely(driver)
                     continue
                 
             except Exception as e:
                 print(f"画像 {i+1} の処理に失敗: {e}")
-                # エラーが発生した場合もモーダルを閉じる
-                try:
-                    driver.find_element(By.TAG_NAME, 'body').send_keys('\ue00c')  # ESCキー
-                    time.sleep(1)
-                except:
-                    pass
+                close_modal_safely(driver)
                 continue
         
         print(f"新規ダウンロード: {downloaded_count}件")
