@@ -89,24 +89,28 @@ def main():
         
         # より多くの画像を表示するためにスクロール（段階的に実行）
         print("ページをスクロールして画像を読み込み中...")
-        for i in range(15):  # 15回スクロール
+        for i in range(20):  # 20回スクロール
             # より積極的にスクロール
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(1.5)  # 待機時間を短縮
+            time.sleep(1.0)  # 待機時間を短縮
             
             # 追加のスクロール（ページの中央部分もスクロール）
-            driver.execute_script("window.scrollBy(0, 500);")
-            time.sleep(0.5)
+            driver.execute_script("window.scrollBy(0, 800);")
+            time.sleep(0.3)
             
-            print(f"スクロール {i + 1}/15 完了")
+            # さらに追加スクロール
+            driver.execute_script("window.scrollBy(0, -200);")
+            time.sleep(0.2)
             
-            # 2回ごとに要素数をチェック
-            if i % 2 == 1:
+            print(f"スクロール {i + 1}/20 完了")
+            
+            # 3回ごとに要素数をチェック
+            if i % 3 == 2:
                 current_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
                 print(f"現在の要素数: {len(current_elements)}")
                 
-                # 15個以上見つかったら早期終了
-                if len(current_elements) >= 15:
+                # 20個以上見つかったら早期終了
+                if len(current_elements) >= 20:
                     print("十分な要素が見つかりました")
                     break
         
@@ -131,58 +135,95 @@ def main():
         existing_image_count = len(list(save_dir.glob("*.jpg")))
         print(f"既存画像: {existing_image_count}枚")
         
-        # 1枚目、4枚目、7枚目、10枚目、13枚目を取得
+        # 何がなんでも5枚取得するアプローチ
         TARGET_COUNT = 5
-        target_positions = [0, 3, 6, 9, 12]  # 0ベースのインデックス
         downloaded_count = 0
         processed_count = 0
+        current_position = 0
         
         print(f"目標: {TARGET_COUNT}枚の画像を取得")
-        print(f"取得対象の位置: {[pos + 1 for pos in target_positions]}枚目")
         
-        for position in target_positions:
-            if downloaded_count >= TARGET_COUNT:
-                break
-                
+        # 利用可能な要素を取得
+        def get_available_elements():
+            """利用可能な要素を取得（複数の方法を試す）"""
+            elements = []
+            
+            # 方法1: 通常のセレクター
+            try:
+                elements1 = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
+                if elements1:
+                    elements = elements1
+                    print(f"方法1で{len(elements1)}個の要素を発見")
+            except Exception as e:
+                print(f"方法1でエラー: {e}")
+            
+            # 方法2: より広範囲なセレクター
+            try:
+                elements2 = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a")
+                if len(elements2) > len(elements):
+                    elements = elements2
+                    print(f"方法2で{len(elements2)}個の要素を発見")
+            except Exception as e:
+                print(f"方法2でエラー: {e}")
+            
+            # 方法3: さらに広範囲なセレクター
+            try:
+                elements3 = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] [role='link']")
+                if len(elements3) > len(elements):
+                    elements = elements3
+                    print(f"方法3で{len(elements3)}個の要素を発見")
+            except Exception as e:
+                print(f"方法3でエラー: {e}")
+            
+            return elements
+        
+        # 5枚取得するまで繰り返し処理
+        while downloaded_count < TARGET_COUNT:
             try:
                 processed_count += 1
-                print(f"画像 {position + 1} を処理中... (新規取得: {downloaded_count}枚)")
+                print(f"画像 {current_position + 1} を処理中... (新規取得: {downloaded_count}枚)")
                 
-                # 要素を再取得（複数のセレクターを試す）
-                try:
-                    current_elements = []
+                # 要素を再取得
+                current_elements = get_available_elements()
+                
+                if current_position >= len(current_elements):
+                    print(f"画像 {current_position + 1}: 要素が見つかりません（利用可能: {len(current_elements)}個）")
                     
-                    # 方法1: 通常のセレクター
-                    elements1 = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
-                    if elements1:
-                        current_elements = elements1
-                        print(f"方法1で{len(elements1)}個の要素を発見")
-                    
-                    # 方法2: より広範囲なセレクター
+                    # 要素が少ない場合はページを再読み込み
                     if len(current_elements) < 10:
-                        elements2 = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a")
-                        if len(elements2) > len(current_elements):
-                            current_elements = elements2
-                            print(f"方法2で{len(elements2)}個の要素を発見")
+                        print("要素数が少ないため、ページを再読み込みします...")
+                        driver.refresh()
+                        time.sleep(5)
+                        
+                        # 再スクロール
+                        for j in range(10):
+                            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                            time.sleep(1)
+                            driver.execute_script("window.scrollBy(0, 500);")
+                            time.sleep(0.5)
+                        
+                        print("再読み込み完了")
                     
-                    if position >= len(current_elements):
-                        print(f"画像 {position + 1}: 要素が見つかりません（利用可能: {len(current_elements)}個）")
-                        continue
-                    
-                    thumbnail_element = current_elements[position]
-                    
-                    # 要素が有効かチェック
-                    if not thumbnail_element.is_displayed():
-                        print(f"画像 {position + 1}: 要素が表示されていません")
-                        continue
-                    
-                    if not thumbnail_element.is_enabled():
-                        print(f"画像 {position + 1}: 要素が無効です")
-                        continue
-                    
-                except Exception as e:
-                    print(f"画像 {position + 1}: 要素再取得エラー: {e}")
+                    current_position += 1
                     continue
+                
+                thumbnail_element = current_elements[current_position]
+                
+                # 要素が有効かチェック
+                if not thumbnail_element.is_displayed():
+                    print(f"画像 {current_position + 1}: 要素が表示されていません")
+                    current_position += 1
+                    continue
+                
+                if not thumbnail_element.is_enabled():
+                    print(f"画像 {current_position + 1}: 要素が無効です")
+                    current_position += 1
+                    continue
+                
+            except Exception as e:
+                print(f"画像 {current_position + 1}: 要素取得エラー: {e}")
+                current_position += 1
+                continue
                 
                 # サムネ画像をクリックして高画質画像を表示
                 try:
@@ -282,14 +323,19 @@ def main():
                     close_modal_safely(driver)
                     
                 except Exception as e:
-                    print(f"画像 {position + 1}: 画像処理エラー: {e}")
+                    print(f"画像 {current_position + 1}: 画像処理エラー: {e}")
                     close_modal_safely(driver)
+                    current_position += 1
                     continue
                 
             except Exception as e:
-                print(f"画像 {position + 1} の処理に失敗: {e}")
+                print(f"画像 {current_position + 1} の処理に失敗: {e}")
                 close_modal_safely(driver)
+                current_position += 1
                 continue
+            
+            # 次の画像に進む
+            current_position += 1
         
         print(f"新規ダウンロード: {downloaded_count}件")
         if downloaded_count >= TARGET_COUNT:
