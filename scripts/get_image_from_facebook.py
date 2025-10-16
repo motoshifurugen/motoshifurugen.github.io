@@ -134,10 +134,31 @@ def main():
         print(f"目標: {TARGET_COUNT}枚の画像を取得")
         
         while downloaded_count < TARGET_COUNT and current_position < len(thumbnail_elements):
-            thumbnail_element = thumbnail_elements[current_position]
             try:
                 processed_count += 1
                 print(f"画像 {current_position + 1} を処理中... (新規取得: {downloaded_count}枚)")
+                
+                # stale element referenceエラーを避けるため、要素を再取得
+                try:
+                    # 現在の位置の要素を再取得
+                    current_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
+                    if current_position >= len(current_elements):
+                        print(f"画像 {current_position + 1}: 要素が見つかりません")
+                        current_position += 1
+                        continue
+                    
+                    thumbnail_element = current_elements[current_position]
+                    
+                    # 要素が有効かチェック
+                    if not thumbnail_element.is_displayed() or not thumbnail_element.is_enabled():
+                        print(f"画像 {current_position + 1}: 要素が無効です")
+                        current_position += 1
+                        continue
+                    
+                except Exception as e:
+                    print(f"画像 {current_position + 1}: 要素再取得エラー: {e}")
+                    current_position += 1
+                    continue
                 
                 # サムネ画像をクリックして高画質画像を表示
                 try:
@@ -149,22 +170,52 @@ def main():
                     current_position += 1
                     continue
                 
-                # 高画質画像の要素を待機して取得
+                # 高画質画像の要素を待機して取得（複数の方法を試す）
                 try:
-                    # MediaViewerPhotoの配下から高画質画像を取得
-                    high_res_img = wait.until(
-                        EC.presence_of_element_located((By.CSS_SELECTOR, "div[data-pagelet='MediaViewerPhoto'] img[src*='scontent']"))
-                    )
+                    high_res_img = None
+                    img_src = None
                     
-                    # 画像の読み込み完了を待つ
-                    wait.until(lambda driver: high_res_img.get_attribute('complete') == 'true')
-                    img_src = high_res_img.get_attribute('src')
+                    # 方法1: MediaViewerPhotoの配下から高画質画像を取得
+                    try:
+                        high_res_img = WebDriverWait(driver, 10).until(
+                            EC.presence_of_element_located((By.CSS_SELECTOR, "div[data-pagelet='MediaViewerPhoto'] img[src*='scontent']"))
+                        )
+                        img_src = high_res_img.get_attribute('src')
+                    except TimeoutException:
+                        pass
+                    
+                    # 方法2: より広範囲なセレクターで画像を探す
+                    if not img_src:
+                        try:
+                            high_res_img = WebDriverWait(driver, 5).until(
+                                EC.presence_of_element_located((By.CSS_SELECTOR, "div[role='dialog'] img[src*='scontent']"))
+                            )
+                            img_src = high_res_img.get_attribute('src')
+                        except TimeoutException:
+                            pass
+                    
+                    # 方法3: モーダル内の画像を探す
+                    if not img_src:
+                        try:
+                            high_res_img = WebDriverWait(driver, 5).until(
+                                EC.presence_of_element_located((By.CSS_SELECTOR, "[role='dialog'] img"))
+                            )
+                            img_src = high_res_img.get_attribute('src')
+                        except TimeoutException:
+                            pass
                     
                     if not img_src:
                         print(f"画像 {current_position + 1}: 高画質画像のURLが見つかりません")
                         close_modal_safely(driver)
                         current_position += 1
                         continue
+                    
+                    # 画像の読み込み完了を待つ
+                    if high_res_img:
+                        try:
+                            WebDriverWait(driver, 10).until(lambda driver: high_res_img.get_attribute('complete') == 'true')
+                        except TimeoutException:
+                            print(f"画像 {current_position + 1}: 画像読み込みタイムアウト（続行）")
                     
                     # 画像をダウンロード
                     response = requests.get(img_src)
@@ -206,11 +257,6 @@ def main():
                     # モーダルを安全に閉じる
                     close_modal_safely(driver)
                     
-                except TimeoutException:
-                    print(f"画像 {current_position + 1}: 高画質画像の読み込みがタイムアウトしました")
-                    close_modal_safely(driver)
-                    current_position += 1
-                    continue
                 except Exception as e:
                     print(f"画像 {current_position + 1}: 画像処理エラー: {e}")
                     close_modal_safely(driver)
