@@ -111,35 +111,51 @@ def main():
         print("ページをスクロールして画像を読み込み中...")
         max_scroll_attempts = 50  # スクロール回数を増加
         elements_found = 0
+        no_change_count = 0
+        last_scroll_height = 0
         
         for i in range(max_scroll_attempts):
+            # 現在のスクロール位置を記録
+            current_scroll_height = driver.execute_script("return document.body.scrollHeight")
+            
             # より積極的にスクロール
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(1.5)  # 待機時間を少し延長
+            time.sleep(2.5)  # 待機時間を延長
             
             # 追加のスクロール（ページの中央部分もスクロール）
-            driver.execute_script("window.scrollBy(0, 1000);")
-            time.sleep(0.5)
+            driver.execute_script("window.scrollBy(0, 1500);")
+            time.sleep(1.0)
             
             # さらに追加スクロール
-            driver.execute_script("window.scrollBy(0, -300);")
-            time.sleep(0.3)
+            driver.execute_script("window.scrollBy(0, -500);")
+            time.sleep(0.8)
             
-            # 要素数をチェック
+            # 要素数をチェック（正確なセレクターを使用）
             current_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
-            print(f"スクロール {i + 1}/{max_scroll_attempts} 完了 - 要素数: {len(current_elements)}")
+            
+            print(f"スクロール {i + 1}/{max_scroll_attempts} 完了 - 要素数: {len(current_elements)} (スクロール高: {current_scroll_height})")
             
             # 要素数が増加しなくなったら終了
-            if len(current_elements) == elements_found and i > 10:
-                print("要素数が増加しなくなりました")
-                break
+            if len(current_elements) == elements_found and current_scroll_height == last_scroll_height:
+                no_change_count += 1
+                if no_change_count >= 3:  # 3回連続で変化なし
+                    print("要素数とスクロール高が変化しなくなりました")
+                    break
+            else:
+                no_change_count = 0
             
             elements_found = len(current_elements)
+            last_scroll_height = current_scroll_height
             
             # 30個以上見つかったら早期終了
             if len(current_elements) >= 30:
                 print("十分な要素が見つかりました")
                 break
+            
+            # 追加の待機時間でコンテンツの読み込みを確実にする
+            if i % 5 == 4:  # 5回ごとに追加待機
+                print("追加の待機時間...")
+                time.sleep(3)
         
         # 画像要素を検出（動作しているa[role='link']方法のみを使用）
         thumbnail_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
@@ -182,15 +198,16 @@ def main():
         
         # 利用可能な要素を取得
         def get_available_elements():
-            """利用可能な要素を取得（複数の方法を試す）"""
+            """利用可能な要素を取得（正確なセレクターを優先）"""
             elements = []
             
-            # 方法1: 通常のセレクター
+            # 方法1: 正確なセレクター（キャプチャで確認された構造）
             try:
                 elements1 = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
                 if elements1:
                     elements = elements1
-                    print(f"方法1で{len(elements1)}個の要素を発見")
+                    print(f"方法1（正確なセレクター）で{len(elements1)}個の要素を発見")
+                    return elements  # 正確なセレクターが見つかったら即座に返す
             except Exception as e:
                 print(f"方法1でエラー: {e}")
             
@@ -232,9 +249,64 @@ def main():
             
             return elements
         
-        # 指定された間隔で画像を取得（1枚目、5枚目、10枚目、16枚目、23枚目）
-        target_positions = [0, 4, 9, 15, 22]  # 0ベースのインデックス
-        max_attempts = 50
+        # スクロール完了後に最終的な要素数を確認
+        print("スクロール完了後の最終確認...")
+        time.sleep(2)  # 追加の待機時間
+        
+        # 利用可能な要素数を確認してから適切な間隔を決定
+        current_elements = get_available_elements()
+        available_count = len(current_elements)
+        print(f"最終的な利用可能な要素数: {available_count}個")
+        
+        # 要素数が少ない場合は追加のスクロールを試行
+        if available_count < 15:
+            print("要素数が少ないため、追加のスクロールを実行します...")
+            for i in range(10):
+                driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                time.sleep(2)
+                driver.execute_script("window.scrollBy(0, 1000);")
+                time.sleep(1)
+                
+                # 要素数を再確認
+                current_elements = get_available_elements()
+                new_count = len(current_elements)
+                print(f"追加スクロール {i + 1}/10 - 要素数: {new_count}")
+                
+                if new_count > available_count:
+                    available_count = new_count
+                    current_elements = get_available_elements()
+                
+                if available_count >= 20:
+                    print("十分な要素が見つかりました")
+                    break
+        
+        # 利用可能な要素数に応じて間隔を調整
+        if available_count >= 23:
+            target_positions = [0, 4, 9, 15, 22]  # 1枚目、5枚目、10枚目、16枚目、23枚目
+        elif available_count >= 16:
+            target_positions = [0, 4, 9, 15]  # 1枚目、5枚目、10枚目、16枚目
+        elif available_count >= 10:
+            target_positions = [0, 4, 9]  # 1枚目、5枚目、10枚目
+        elif available_count >= 5:
+            target_positions = [0, 4]  # 1枚目、5枚目
+        else:
+            # 要素が少ない場合は、利用可能なすべての要素を取得
+            target_positions = list(range(min(available_count, 5)))
+            print(f"要素数が少ないため、利用可能なすべての要素を取得します: {[pos + 1 for pos in target_positions]}枚目")
+        
+        print(f"選択された間隔: {[pos + 1 for pos in target_positions]}枚目")
+        
+        # デバッグ情報: 見つかった要素の詳細を表示
+        if available_count > 0:
+            print("見つかった要素の詳細:")
+            for i, element in enumerate(current_elements[:5]):  # 最初の5個の要素の詳細を表示
+                try:
+                    href = element.get_attribute('href')
+                    print(f"  要素 {i + 1}: href={href[:50]}..." if href else f"  要素 {i + 1}: hrefなし")
+                except:
+                    print(f"  要素 {i + 1}: 詳細取得エラー")
+        
+        max_attempts = len(target_positions) * 2  # 各位置で最大2回試行
         attempt_count = 0
         
         for target_pos in target_positions:
@@ -251,23 +323,6 @@ def main():
                 
                 if target_pos >= len(current_elements):
                     print(f"画像 {target_pos + 1}: 要素が見つかりません（利用可能: {len(current_elements)}個）")
-                    
-                    # 要素が少ない場合はページを再読み込み
-                    if len(current_elements) < target_pos + 5:
-                        print("要素数が少ないため、ページを再読み込みします...")
-                        driver.refresh()
-                        time.sleep(5)
-                        
-                        # 再スクロール
-                        for j in range(15):
-                            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                            time.sleep(1)
-                            driver.execute_script("window.scrollBy(0, 500);")
-                            time.sleep(0.5)
-                        
-                        print("再読み込み完了")
-                        continue
-                    
                     continue
                 
                 thumbnail_element = current_elements[target_pos]
@@ -297,10 +352,11 @@ def main():
                     
                     # 方法1: MediaViewerPhotoの配下から高画質画像を取得
                     try:
-                        high_res_img = WebDriverWait(driver, 10).until(
+                        high_res_img = WebDriverWait(driver, 8).until(
                             EC.presence_of_element_located((By.CSS_SELECTOR, "div[data-pagelet='MediaViewerPhoto'] img[src*='scontent']"))
                         )
                         img_src = high_res_img.get_attribute('src')
+                        print(f"方法1で画像URLを取得: {img_src[:50]}...")
                     except TimeoutException:
                         pass
                     
@@ -311,6 +367,7 @@ def main():
                                 EC.presence_of_element_located((By.CSS_SELECTOR, "div[role='dialog'] img[src*='scontent']"))
                             )
                             img_src = high_res_img.get_attribute('src')
+                            print(f"方法2で画像URLを取得: {img_src[:50]}...")
                         except TimeoutException:
                             pass
                     
@@ -321,6 +378,18 @@ def main():
                                 EC.presence_of_element_located((By.CSS_SELECTOR, "[role='dialog'] img"))
                             )
                             img_src = high_res_img.get_attribute('src')
+                            print(f"方法3で画像URLを取得: {img_src[:50]}...")
+                        except TimeoutException:
+                            pass
+                    
+                    # 方法4: より一般的なセレクターで画像を探す
+                    if not img_src:
+                        try:
+                            high_res_img = WebDriverWait(driver, 3).until(
+                                EC.presence_of_element_located((By.CSS_SELECTOR, "img[src*='scontent']"))
+                            )
+                            img_src = high_res_img.get_attribute('src')
+                            print(f"方法4で画像URLを取得: {img_src[:50]}...")
                         except TimeoutException:
                             pass
                     
