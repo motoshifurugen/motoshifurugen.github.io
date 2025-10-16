@@ -89,26 +89,22 @@ def main():
         
         # より多くの画像を表示するためにスクロール（複数回実行）
         print("ページをスクロールして画像を読み込み中...")
-        for i in range(5):  # 5回スクロール
+        for i in range(10):  # 10回スクロール
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(3)  # より長く待機
-            print(f"スクロール {i + 1}/5 完了")
+            time.sleep(2)  # 待機時間を短縮して効率化
+            print(f"スクロール {i + 1}/10 完了")
+            
+            # 途中で要素数をチェック
+            if i % 3 == 2:  # 3回ごとにチェック
+                current_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
+                print(f"現在の要素数: {len(current_elements)}")
         
         # 画像要素を検出（動作しているa[role='link']方法のみを使用）
         thumbnail_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
         print(f"見つかった要素数: {len(thumbnail_elements)}")
         
-        # 要素の検証
-        valid_elements = []
-        for element in thumbnail_elements:
-            try:
-                if element.is_displayed() and element.is_enabled():
-                    valid_elements.append(element)
-            except Exception:
-                continue
-        
-        thumbnail_elements = valid_elements
-        print(f"有効な要素数: {len(thumbnail_elements)}")
+        # 初期検証は最小限に（後で詳細にチェック）
+        print(f"初期要素数: {len(thumbnail_elements)}")
         
         # 既存ファイルのハッシュ値をチェック
         existing_hashes = set()
@@ -129,11 +125,12 @@ def main():
         downloaded_count = 0
         processed_count = 0
         current_position = 0
+        consecutive_invalid_count = 0  # 連続無効要素カウンター
         
-        print(f"利用可能な画像数: {len(thumbnail_elements)}")
         print(f"目標: {TARGET_COUNT}枚の画像を取得")
+        max_position = 50  # 最大50個まで試行
         
-        while downloaded_count < TARGET_COUNT and current_position < len(thumbnail_elements):
+        while downloaded_count < TARGET_COUNT and current_position < max_position:
             try:
                 processed_count += 1
                 print(f"画像 {current_position + 1} を処理中... (新規取得: {downloaded_count}枚)")
@@ -149,11 +146,21 @@ def main():
                     
                     thumbnail_element = current_elements[current_position]
                     
-                    # 要素が有効かチェック
-                    if not thumbnail_element.is_displayed() or not thumbnail_element.is_enabled():
-                        print(f"画像 {current_position + 1}: 要素が無効です")
+                    # 要素が有効かチェック（より厳密な検証）
+                    if not thumbnail_element.is_displayed():
+                        print(f"画像 {current_position + 1}: 要素が表示されていません")
+                        consecutive_invalid_count += 1
                         current_position += 1
                         continue
+                    
+                    if not thumbnail_element.is_enabled():
+                        print(f"画像 {current_position + 1}: 要素が無効です（スキップ）")
+                        consecutive_invalid_count += 1
+                        current_position += 1
+                        continue
+                    
+                    # 連続無効カウンターをリセット
+                    consecutive_invalid_count = 0
                     
                 except Exception as e:
                     print(f"画像 {current_position + 1}: 要素再取得エラー: {e}")
