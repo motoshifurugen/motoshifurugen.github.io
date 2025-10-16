@@ -83,7 +83,8 @@ def main():
         time.sleep(5)
         
         # 写真ページにアクセス
-        driver.get("https://www.facebook.com/profile.php?id=100054664260008&sk=photos")
+        # driver.get("https://www.facebook.com/profile.php?id=100054664260008&sk=photos")
+        driver.get("https://www.facebook.com/bacoloderoom/photos_by")
         time.sleep(5)
         
         # より多くの画像を表示するためにスクロール
@@ -91,8 +92,8 @@ def main():
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             time.sleep(2)
         
-        # サムネ画像要素を取得（クリック可能な要素）- より多く取得して重複を避ける
-        thumbnail_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")[:MAX_IMAGES * 3]
+        # サムネ画像要素を取得（クリック可能な要素）- 40枚目まで取得するため十分な数を取得
+        thumbnail_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")[:50]
         
         # 既存ファイルのハッシュ値をチェック
         existing_hashes = set()
@@ -108,14 +109,22 @@ def main():
         existing_image_count = len(list(save_dir.glob("*.jpg")))
         print(f"既存画像: {existing_image_count}枚")
         
-        # 画像をダウンロード - 新しい画像があれば取得し、古い画像を削除
+        # 取得する画像の位置を定義（1枚目、10枚目、20枚目、30枚目、40枚目）
+        target_positions = [0, 9, 19, 29, 39]  # 0ベースのインデックス
+        
+        # 画像をダウンロード - 指定された位置の画像のみを取得
         downloaded_count = 0
         processed_count = 0
         
-        for i, thumbnail_element in enumerate(thumbnail_elements):
+        for position in target_positions:
+            if position >= len(thumbnail_elements):
+                print(f"位置 {position + 1} の画像が見つかりません（利用可能な画像数: {len(thumbnail_elements)}）")
+                continue
+                
+            thumbnail_element = thumbnail_elements[position]
             try:
                 processed_count += 1
-                print(f"画像 {processed_count} を処理中... (新規取得: {downloaded_count}枚)")
+                print(f"画像 {position + 1} を処理中... (新規取得: {downloaded_count}枚)")
                 
                 # サムネ画像をクリックして高画質画像を表示
                 driver.execute_script("arguments[0].click();", thumbnail_element)
@@ -133,7 +142,7 @@ def main():
                     img_src = high_res_img.get_attribute('src')
                     
                     if not img_src:
-                        print(f"画像 {processed_count}: 高画質画像のURLが見つかりません")
+                        print(f"画像 {position + 1}: 高画質画像のURLが見つかりません")
                         close_modal_safely(driver)
                         continue
                     
@@ -177,16 +186,16 @@ def main():
                     close_modal_safely(driver)
                     
                 except TimeoutException:
-                    print(f"画像 {processed_count}: 高画質画像の読み込みがタイムアウトしました")
+                    print(f"画像 {position + 1}: 高画質画像の読み込みがタイムアウトしました")
                     close_modal_safely(driver)
                     continue
                 except Exception as e:
-                    print(f"画像 {processed_count}: 画像処理エラー: {e}")
+                    print(f"画像 {position + 1}: 画像処理エラー: {e}")
                     close_modal_safely(driver)
                     continue
                 
             except Exception as e:
-                print(f"画像 {processed_count} の処理に失敗: {e}")
+                print(f"画像 {position + 1} の処理に失敗: {e}")
                 close_modal_safely(driver)
                 continue
         
