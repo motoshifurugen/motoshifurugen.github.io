@@ -105,19 +105,32 @@ def main():
         
         # 固定ファイル名の画像数を確認
         existing_count = 0
+        existing_files = []
         for i in range(1, 6):
             if (save_dir / f"slide_{i}.jpg").exists():
                 existing_count += 1
+                existing_files.append(f"slide_{i}.jpg")
+        
+        print(f"既存の固定画像: {existing_count}枚 ({', '.join(existing_files)})")
         
         if existing_count >= 5:
             print("既に5枚の固定画像が存在します。処理をスキップします。")
             return 0
         
-        # 指定された間隔で画像を取得（1枚目、3枚目、5枚目、7枚目、9枚目、11枚目）
-        target_positions = [0, 2, 4, 6, 8]  # 1枚目、3枚目、5枚目、7枚目、9枚目
-        if len(image_elements) >= 11:
-            target_positions.append(10)  # 11枚目
+        # 利用可能な要素数に応じて間隔を調整
+        available_count = len(image_elements)
+        if available_count >= 9:
+            target_positions = [0, 2, 4, 6, 8]  # 1枚目、3枚目、5枚目、7枚目、9枚目
+        elif available_count >= 7:
+            target_positions = [0, 2, 4, 6]  # 1枚目、3枚目、5枚目、7枚目
+        elif available_count >= 5:
+            target_positions = [0, 2, 4]  # 1枚目、3枚目、5枚目
+        elif available_count >= 3:
+            target_positions = [0, 2]  # 1枚目、3枚目
+        else:
+            target_positions = [0]  # 1枚目のみ
         
+        print(f"利用可能な要素数: {available_count}個")
         print(f"取得対象: {[pos + 1 for pos in target_positions]}枚目")
         
         downloaded_count = 0
@@ -210,19 +223,26 @@ def main():
                 response.raise_for_status()
                 image_data = response.content
                 
-                # 重複チェック
+                # 重複チェック（固定ファイル名の既存画像と比較）
                 image_hash = hashlib.md5(image_data).hexdigest()
-                existing_hashes = set()
-                for file_path in save_dir.glob("*.jpg"):
-                    try:
-                        with open(file_path, 'rb') as f:
-                            existing_hashes.add(hashlib.md5(f.read()).hexdigest())
-                    except:
-                        continue
+                is_duplicate = False
                 
-                if image_hash in existing_hashes:
-                    print(f"スキップ: 既存の画像")
+                for i in range(1, 6):
+                    existing_file = save_dir / f"slide_{i}.jpg"
+                    if existing_file.exists():
+                        try:
+                            with open(existing_file, 'rb') as f:
+                                existing_hash = hashlib.md5(f.read()).hexdigest()
+                                if image_hash == existing_hash:
+                                    print(f"スキップ: slide_{i}.jpg と同じ画像")
+                                    is_duplicate = True
+                                    break
+                        except:
+                            continue
+                
+                if is_duplicate:
                     close_modal_safely(driver)
+                    time.sleep(2)
                     continue
                 
                 # 固定ファイル名で保存（スライドショー用）
