@@ -18,11 +18,13 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, ElementClickInterceptedException
 
 def cleanup_old_images(save_dir, max_files=5):
-    """古い画像を削除して最大ファイル数を維持する"""
-    image_files = list(save_dir.glob("*.jpg"))
-    if len(image_files) > max_files:
-        image_files.sort(key=lambda x: x.name, reverse=True)
-        for file_path in image_files[max_files:]:
+    """固定ファイル名以外の古い画像を削除"""
+    # 固定ファイル名以外の画像ファイルを削除
+    all_files = list(save_dir.glob("*.jpg"))
+    fixed_files = {f"slide_{i}.jpg" for i in range(1, max_files + 1)}
+    
+    for file_path in all_files:
+        if file_path.name not in fixed_files:
             try:
                 file_path.unlink()
                 print(f"古い画像を削除: {file_path.name}")
@@ -101,10 +103,14 @@ def main():
         
         print(f"見つかった画像要素数: {len(image_elements)}")
         
-        # 既存の画像数を確認
-        existing_count = len(list(save_dir.glob("*.jpg")))
+        # 固定ファイル名の画像数を確認
+        existing_count = 0
+        for i in range(1, 6):
+            if (save_dir / f"slide_{i}.jpg").exists():
+                existing_count += 1
+        
         if existing_count >= 5:
-            print("既に5枚の画像が存在します。処理をスキップします。")
+            print("既に5枚の固定画像が存在します。処理をスキップします。")
             return 0
         
         # 指定された間隔で画像を取得（1枚目、3枚目、5枚目、7枚目、9枚目、11枚目）
@@ -219,8 +225,8 @@ def main():
                     close_modal_safely(driver)
                     continue
                 
-                # ファイル名を生成して保存
-                filename = f"photo_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{image_hash[:8]}.jpg"
+                # 固定ファイル名で保存（スライドショー用）
+                filename = f"slide_{downloaded_count + 1}.jpg"
                 with open(save_dir / filename, 'wb') as f:
                     f.write(image_data)
                 print(f"保存: {filename}")
@@ -249,6 +255,7 @@ def main():
         driver.quit()
     
     return 0
+
 
 if __name__ == "__main__":
     exit(main())

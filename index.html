@@ -1008,18 +1008,34 @@
 
         // ヒーロースライドショー
         const heroSlideshow = document.getElementById('heroSlideshow');
-        const imageFiles = [
-            'images/facebook/photo_20251014_130018_6d3bbf8a.jpg',
-            'images/facebook/photo_20251014_130023_f894f4d8.jpg',
-            'images/facebook/photo_20251014_130028_507f795f.jpg',
-            'images/facebook/photo_20251014_131309_808ab720.jpg',
-            'images/facebook/photo_20251014_131314_aad702d0.jpg'
-        ];
+        
+        // 固定ファイル名の画像を取得
+        async function getImageFiles() {
+            const imageFiles = [];
+            
+            // slide_1.jpg から slide_5.jpg まで順番にチェック
+            for (let i = 1; i <= 5; i++) {
+                const imagePath = `images/facebook/slide_${i}.jpg`;
+                try {
+                    const response = await fetch(imagePath, { method: 'HEAD' });
+                    if (response.ok) {
+                        imageFiles.push(imagePath);
+                    }
+                } catch (error) {
+                    console.log(`画像が見つかりません: slide_${i}.jpg`);
+                }
+            }
+            
+            return imageFiles;
+        }
 
         let currentSlide = 0;
 
         // スライド要素を生成
-        function createSlides() {
+        function createSlides(imageFiles) {
+            // 既存のスライドをクリア
+            heroSlideshow.innerHTML = '';
+            
             imageFiles.forEach((imagePath, index) => {
                 const slide = document.createElement('div');
                 slide.className = 'hero-slide';
@@ -1040,9 +1056,24 @@
         }
 
         // スライドショーを開始
-        function startSlideshow() {
-            createSlides();
-            setInterval(nextSlide, 3000); // 3秒間隔で切り替え
+        async function startSlideshow() {
+            try {
+                const imageFiles = await getImageFiles();
+                console.log(`見つかった画像: ${imageFiles.length}枚`);
+                
+                if (imageFiles.length > 0) {
+                    createSlides(imageFiles);
+                    setInterval(nextSlide, 3000); // 3秒間隔で切り替え
+                } else {
+                    console.log('画像が見つかりませんでした');
+                    // フォールバック: デフォルト画像またはメッセージを表示
+                    heroSlideshow.innerHTML = '<div class="hero-slide active" style="background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;"><p style="color: #666; font-size: 1.2rem;">画像を読み込み中...</p></div>';
+                }
+            } catch (error) {
+                console.error('スライドショーの初期化に失敗:', error);
+                // エラー時のフォールバック
+                heroSlideshow.innerHTML = '<div class="hero-slide active" style="background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;"><p style="color: #666; font-size: 1.2rem;">画像の読み込みに失敗しました</p></div>';
+            }
         }
 
         // ページ読み込み完了後にスライドショーを開始
