@@ -83,12 +83,23 @@ def main():
             lambda driver: driver.execute_script("return document.readyState") == "complete"
         )
         
-        # 要素を取得
+        # ProfileAppSection_0の配下にある画像要素のみを取得
         elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
         if not elements:
             elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a")
         
-        print(f"見つかった要素数: {len(elements)}")
+        # 画像要素のみに絞り込み
+        image_elements = []
+        for element in elements:
+            try:
+                # 画像を含む要素かチェック
+                img_tag = element.find_element(By.TAG_NAME, "img")
+                if img_tag:
+                    image_elements.append(element)
+            except:
+                continue
+        
+        print(f"見つかった画像要素数: {len(image_elements)}")
         
         # 既存の画像数を確認
         existing_count = len(list(save_dir.glob("*.jpg")))
@@ -98,7 +109,7 @@ def main():
         
         # 指定された間隔で画像を取得（1枚目、3枚目、5枚目、7枚目、9枚目、11枚目）
         target_positions = [0, 2, 4, 6, 8]  # 1枚目、3枚目、5枚目、7枚目、9枚目
-        if len(elements) >= 11:
+        if len(image_elements) >= 11:
             target_positions.append(10)  # 11枚目
         
         print(f"取得対象: {[pos + 1 for pos in target_positions]}枚目")
@@ -112,38 +123,80 @@ def main():
             try:
                 print(f"画像 {target_pos + 1} を処理中...")
                 
-                if target_pos >= len(elements):
-                    print(f"画像 {target_pos + 1}: 要素が見つかりません")
+                # 画像要素を再取得（stale element reference対策）
+                current_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
+                if not current_elements:
+                    current_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a")
+                
+                # 画像要素のみに絞り込み
+                current_image_elements = []
+                for element in current_elements:
+                    try:
+                        img_tag = element.find_element(By.TAG_NAME, "img")
+                        if img_tag:
+                            current_image_elements.append(element)
+                    except:
+                        continue
+                
+                if target_pos >= len(current_image_elements):
+                    print(f"画像 {target_pos + 1}: 画像要素が見つかりません")
                     continue
                 
-                element = elements[target_pos]
+                element = current_image_elements[target_pos]
                 
                 # サムネ画像をクリック
                 driver.execute_script("arguments[0].click();", element)
-                time.sleep(3)
+                time.sleep(5)  # モーダルが完全に開くまで待機
                 
-                # 高画質画像を取得
+                # 高画質画像を取得（より確実な方法）
                 img_src = None
-                selectors = [
-                    "div[data-pagelet='MediaViewerPhoto'] img[src*='scontent']",
-                    "div[role='dialog'] img[src*='scontent']",
-                    "[role='dialog'] img",
-                    "img[src*='scontent']"
-                ]
                 
-                for selector in selectors:
+                # 方法1: MediaViewerPhotoの高画質画像を待機
+                try:
+                    high_res_img = WebDriverWait(driver, 10).until(
+                        EC.presence_of_element_located((By.CSS_SELECTOR, "div[data-pagelet='MediaViewerPhoto'] img[src*='scontent']"))
+                    )
+                    # 画像の読み込み完了を待つ
+                    WebDriverWait(driver, 10).until(
+                        lambda driver: high_res_img.get_attribute('complete') == 'true'
+                    )
+                    img_src = high_res_img.get_attribute('src')
+                    print(f"画像 {target_pos + 1}: MediaViewerPhotoで高画質画像を取得")
+                except TimeoutException:
+                    pass
+                
+                # 方法2: モーダル内の高画質画像を探す
+                if not img_src:
                     try:
-                        img = WebDriverWait(driver, 5).until(
-                            EC.presence_of_element_located((By.CSS_SELECTOR, selector))
+                        high_res_img = WebDriverWait(driver, 8).until(
+                            EC.presence_of_element_located((By.CSS_SELECTOR, "div[role='dialog'] img[src*='scontent']"))
                         )
-                        img_src = img.get_attribute('src')
-                        break
+                        WebDriverWait(driver, 8).until(
+                            lambda driver: high_res_img.get_attribute('complete') == 'true'
+                        )
+                        img_src = high_res_img.get_attribute('src')
+                        print(f"画像 {target_pos + 1}: モーダル内で高画質画像を取得")
                     except TimeoutException:
-                        continue
+                        pass
+                
+                # 方法3: より一般的なセレクターで高画質画像を探す
+                if not img_src:
+                    try:
+                        high_res_img = WebDriverWait(driver, 5).until(
+                            EC.presence_of_element_located((By.CSS_SELECTOR, "img[src*='scontent'][src*='_n.jpg']"))
+                        )
+                        WebDriverWait(driver, 5).until(
+                            lambda driver: high_res_img.get_attribute('complete') == 'true'
+                        )
+                        img_src = high_res_img.get_attribute('src')
+                        print(f"画像 {target_pos + 1}: 一般的なセレクターで高画質画像を取得")
+                    except TimeoutException:
+                        pass
                 
                 if not img_src:
                     print(f"画像 {target_pos + 1}: 高画質画像のURLが見つかりません")
                     close_modal_safely(driver)
+                    time.sleep(2)
                     continue
                     
                 # 画像をダウンロード
@@ -178,10 +231,12 @@ def main():
                 
                 # モーダルを閉じる
                 close_modal_safely(driver)
+                time.sleep(3)  # ページが安定するまで待機
                     
             except Exception as e:
                 print(f"画像 {target_pos + 1} の処理に失敗: {e}")
                 close_modal_safely(driver)
+                time.sleep(3)  # エラー後もページが安定するまで待機
                 continue
         
         print(f"完了: {downloaded_count}枚の画像を取得しました")
