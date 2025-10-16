@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-ROOM - 英語学習施設</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* ヘッダー */
+        header {
+            background-color: #1a1a1a;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        /* ハンバーガーメニュー */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* メインビジュアル */
+        .hero {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><rect fill="%23e0e0e0" width="800" height="600"/><text x="400" y="300" font-size="30" text-anchor="middle" fill="%23999">メインビジュアル画像</text></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+        }
+
+        /* セクション共通 */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-number {
+            color: #2c5aa0;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        /* Campus Tour */
+        .campus-tour {
+            background-color: #f8f8f8;
+        }
+
+        .tour-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .tour-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tour-text .subtitle {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .tour-video {
+            width: 100%;
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .tour-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+
+        /* Student Voices */
+        .student-voices {
+            background-color: white;
+        }
+
+        .voices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .voice-card {
+            background-color: #f5f5f5;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .voice-card .name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .voice-card .details {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .voice-card .comment {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .view-more {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 3rem;
+            background-color: #2c5aa0;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background-color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background-color: #1e4070;
+        }
+
+        /* Real Reviews */
+        .real-reviews {
+            background-color: #f8f8f8;
+        }
+
+        .reviews-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .review-item {
+            background-color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .review-avatar {
+            width: 80px;
+            height: 80px;
+            background-color: #d0d0d0;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .review-content .name {
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .review-content .meta {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .review-content .text {
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* Local Guide */
+        .local-guide {
+            background-color: white;
+        }
+
+        .guide-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .guide-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-text .subtitle {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .guide-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            border: 1px solid #2c5aa0;
+            color: #2c5aa0;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            justify-content: space-between;
+        }
+
+        .guide-link:hover {
+            background-color: #2c5aa0;
+            color: white;
+        }
+
+        .guide-link::after {
+            content: '→';
+            margin-left: 1rem;
+        }
+
+        .guide-image {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, #2c5aa0 0%, #5080d0 100%);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a3d6b;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 60px;
+                flex-direction: column;
+                background-color: #1a1a1a;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                height: 50vh;
+                min-height: 400px;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .tour-content,
+            .guide-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .guide-content {
+                grid-template-columns: 1fr;
+            }
+
+            .guide-content .guide-text {
+                order: 2;
+            }
+
+            .guide-content .guide-image {
+                order: 1;
+            }
+
+            .voices-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .review-item {
+                flex-direction: column;
+                padding: 1.5rem;
+            }
+
+            .review-avatar {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .btn {
+                padding: 0.7rem 2rem;
+                font-size: 0.85rem;
+            }
+
+            nav {
+                padding: 0 1rem;
+            }
+        }
+
+        /* アニメーション */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Price Calculator */
+        .price-calculator {
+            background-color: white;
+        }
+
+        .calculator-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f8f8f8;
+            padding: 3rem;
+            border-radius: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #2c5aa0;
+        }
+
+        .price-result {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 2rem;
+            border: 3px solid #2c5aa0;
+        }
+
+        .price-result.hidden {
+            display: none;
+        }
+
+        .price-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-amount {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2c5aa0;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-details {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 1rem;
+            line-height: 1.8;
+        }
+
+        .course-description {
+            background-color: #e8f0f8;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .new-badge {
+            display: inline-block;
+            background-color: #ff6b6b;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header>
+        <nav>
+            <div class="logo">E-ROOM</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#campus-tour">CAMPUS TOUR</a></li>
+                <li><a href="#student-voices">VOICES</a></li>
+                <li><a href="#reviews">REVIEWS</a></li>
+                <li><a href="#guide">GUIDE</a></li>
+                <li><a href="#price">PRICE</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- メインビジュアル -->
+    <section class="hero">
+        <div class="hero-content">
+            <!-- ここに建物の画像を配置 -->
+        </div>
+    </section>
+
+    <!-- Campus Tour -->
+    <section class="campus-tour" id="campus-tour">
+        <div class="section-header">
+            <div class="section-number">01</div>
+            <h2 class="section-title">CAMPUS TOUR</h2>
+            <p class="section-subtitle">学校紹介</p>
+        </div>
+        <div class="tour-content">
+            <div class="tour-text">
+                <p>動画で学校の雰囲気や設備をリアルにご紹介します。</p>
+            </div>
+            <div class="tour-video">
+                <iframe
+                    src="https://www.youtube.com/embed/gYPa3lBaLFE?si=wesR5axIHPKsdMPc"
+                    title="E-ROOM Campus Tour"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Voices -->
+    <section class="student-voices" id="student-voices">
+        <div class="section-header">
+            <div class="section-number">02</div>
+            <h2 class="section-title">STUDENT VOICES</h2>
+            <p class="section-subtitle">体験談</p>
+        </div>
+        <p style="text-align: center; margin-bottom: 2rem;">
+            実際に通われている生徒さんからの体験談をお届けします。
+        </p>
+        <div class="voices-grid">
+            <div class="voice-card">
+                <div class="name">◯◯◯◯さん</div>
+                <div class="details">20代・女性・6ヶ月</div>
+                <div class="comment">
+                    学校に来るまでは不安でしたが、ここに来て本当によかったです。
+                </div>
+            </div>
+            <div class="voice-card">
+                <div class="name">◯◯◯◯さん</div>
+                <div class="details">30代・男性・3ヶ月</div>
+                <div class="comment">
+                    先生方がとても親切で、楽しく英語を学ぶことができました。
+                </div>
+            </div>
+            <div class="voice-card">
+                <div class="name">◯◯◯◯さん</div>
+                <div class="details">20代・女性・12ヶ月</div>
+                <div class="comment">
+                    学校の雰囲気が良く、毎日通うのが楽しみになりました。
+                </div>
+            </div>
+            <div class="voice-card">
+                <div class="name">◯◯◯◯さん</div>
+                <div class="details">40代・女性・9ヶ月</div>
+                <div class="comment">
+                    目標だったIELTSのスコアを達成することができました！
+                </div>
+            </div>
+        </div>
+        <div class="view-more">
+            <a href="#" class="btn">VIEW MORE</a>
+        </div>
+    </section>
+
+    <!-- Real Reviews -->
+    <section class="real-reviews" id="reviews">
+        <div class="section-header">
+            <div class="section-number">03</div>
+            <h2 class="section-title">REAL REVIEWS</h2>
+            <p class="section-subtitle">リアルな口コミ</p>
+        </div>
+        <p style="text-align: center; margin-bottom: 2rem;">
+            思い立った時が始め時。今からに遅すぎることはありません。<br>
+            まずはリアルな口コミをチェックしてみましょう。
+        </p>
+        <div class="reviews-list">
+            <div class="review-item">
+                <div class="review-avatar"></div>
+                <div class="review-content">
+                    <div class="name">◯◯◯◯さん</div>
+                    <div class="meta">20代・女性・6ヶ月</div>
+                    <div class="text">
+                        ここに学ぶようになって、ここに学ぶようになって、ここに学ぶようになって、ここに学ぶようになって。ここに学ぶようになって、ここに学ぶようになって、ここに学ぶようになって。ここに学ぶようになって、ここに学ぶようになって、ここに学ぶようになって。ここに学ぶようになって、ここに学ぶようになって。
+                    </div>
+                </div>
+            </div>
+            <div class="review-item">
+                <div class="review-avatar"></div>
+                <div class="review-content">
+                    <div class="name">◯◯◯◯さん</div>
+                    <div class="meta">30代・男性・3ヶ月</div>
+                    <div class="text">
+                        ここに学ぶようになって、ここに学ぶようになって、ここに学ぶようになって、ここに学ぶようになって。ここに学ぶようになって、ここに学ぶようになって、ここに学ぶようになって。ここに学ぶようになって、ここに学ぶようになって、ここに学ぶようになって。ここに学ぶようになって、ここに学ぶようになって。
+                    </div>
+                </div>
+            </div>
+            <div class="review-item">
+                <div class="review-avatar"></div>
+                <div class="review-content">
+                    <div class="name">◯◯◯◯さん</div>
+                    <div class="meta">20代・女性・12ヶ月</div>
+                    <div class="text">
+                        ここに学ぶようになって、ここに学ぶようになって、ここに学ぶようになって、ここに学ぶようになって。ここに学ぶようになって、ここに学ぶようになって、ここに学ぶようになって。ここに学ぶようになって、ここに学ぶようになって、ここに学ぶようになって。ここに学ぶようになって、ここに学ぶようになって。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="view-more">
+            <a href="#" class="btn">VIEW MORE</a>
+        </div>
+    </section>
+
+    <!-- Local Guide -->
+    <section class="local-guide" id="guide">
+        <div class="section-header">
+            <div class="section-number">04</div>
+            <h2 class="section-title">LOCAL GUIDE</h2>
+            <p class="section-subtitle">地域情報</p>
+        </div>
+        <div class="guide-content">
+            <div class="guide-text">
+                <p style="margin-bottom: 1.5rem;">
+                    学校周辺の地域情報や生活に役立つ情報をまとめました。<br>
+                    リンクの地図もチェックしよう！
+                </p>
+                <div class="guide-links">
+                    <a href="#" class="guide-link">EPIMAMのお店</a>
+                    <a href="#" class="guide-link">地域の情報局</a>
+                </div>
+            </div>
+            <div class="guide-image">
+                <!-- ここに建物の画像を配置 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Calculator -->
+    <section class="price-calculator" id="price">
+        <div class="section-header">
+            <div class="section-number">05</div>
+            <h2 class="section-title">PRICE</h2>
+            <p class="section-subtitle">料金プラン</p>
+        </div>
+        <div class="calculator-container">
+            <div class="form-group">
+                <label for="courseSelect">コース</label>
+                <select id="courseSelect">
+                    <option value="">コースを選択してください</option>
+                    <optgroup label="ESLコース（一般英語）">
+                        <option value="esl-light">ESL Light course - マンツーマン(50分×3)、グループ(50分×1)</option>
+                        <option value="esl-a">ESL A course - マンツーマン(50分×5)、グループ(50分×1)</option>
+                        <option value="esl-b">ESL B course - マンツーマン(50分×6)、グループ(50分×1)</option>
+                        <option value="esl-c">ESL C course - マンツーマン(50分×7)、グループ(50分×1)</option>
+                        <option value="esl-d">ESL D course - マンツーマン(50分×8)</option>
+                    </optgroup>
+                    <optgroup label="IELTS/TOEICコース（試験対策）">
+                        <option value="test-a">IELTS/TOEIC A course - マンツーマン(50分×5)、グループ(50分×1)</option>
+                        <option value="test-b">IELTS/TOEIC B course - マンツーマン(50分×6)、グループ(50分×1)</option>
+                        <option value="test-c">IELTS/TOEIC C course - マンツーマン(50分×7)、グループ(50分×1)</option>
+                        <option value="test-d">IELTS/TOEIC D course - マンツーマン(50分×8)</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="roomSelect">部屋タイプ</label>
+                <select id="roomSelect">
+                    <option value="">部屋タイプを選択してください</option>
+                    <option value="single">1人部屋</option>
+                    <option value="double">2人部屋</option>
+                    <option value="triple">3人部屋</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="periodSelect">留学期間</label>
+                <select id="periodSelect">
+                    <option value="">期間を選択してください</option>
+                    <option value="1">1週間</option>
+                    <option value="2">2週間</option>
+                    <option value="3">3週間</option>
+                    <option value="4">4週間</option>
+                    <option value="8">8週間</option>
+                    <option value="12">12週間</option>
+                    <option value="16">16週間</option>
+                    <option value="20">20週間</option>
+                    <option value="24">24週間</option>
+                </select>
+            </div>
+
+            <div id="priceResult" class="price-result hidden">
+                <div class="price-label">お見積もり金額</div>
+                <div class="price-amount" id="priceAmount">¥0</div>
+                <div id="courseDescription" class="course-description"></div>
+                <div class="price-details">
+                    ※費用に含まれるもの：授業料+宿泊費用+食事費用(1日3食)<br>
+                    ※チェックイン（空港ピックアップ）は日曜日中（午前・午後いずれも可）<br>
+                    ※チェックアウトは土曜日の午前中
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">E-ROOM</div>
+            <p>&copy; 2024 E-ROOM. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ハンバーガーメニュー
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // メニューリンクをクリックしたらメニューを閉じる
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // スクロールアニメーション
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // すべてのセクションを監視
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 価格データ
+        const priceData = {
+            'esl-light': {
+                name: 'ESL Light course',
+                description: '2025年8月24日以降に留学を開始される方が対象の新コースです。マンツーマン(50分×3)とグループ(50分×1)で構成されています。',
+                isNew: true,
+                prices: {
+                    single: { 1: 47125, 2: 94250, 3: 130500, 4: 145000, 8: 290000, 12: 431000, 16: 574000, 20: 717000, 24: 860000 },
+                    double: { 1: 40625, 2: 81250, 3: 112500, 4: 125000, 8: 250000, 12: 371000, 16: 494000, 20: 617000, 24: 740000 },
+                    triple: { 1: 37375, 2: 74750, 3: 103500, 4: 115000, 8: 230000, 12: 341000, 16: 454000, 20: 567000, 24: 680000 }
+                }
+            },
+            'esl-a': {
+                name: 'ESL A course',
+                description: 'マンツーマン(50分×5)とグループ(50分×1)で英語力を総合的に伸ばすコースです。',
+                isNew: false,
+                prices: {
+                    single: { 1: 56875, 2: 105000, 3: 144375, 4: 175000, 8: 350000, 12: 521000, 16: 694000, 20: 867000, 24: 1040000 },
+                    double: { 1: 50375, 2: 93000, 3: 127875, 4: 155000, 8: 310000, 12: 461000, 16: 614000, 20: 767000, 24: 920000 },
+                    triple: { 1: 47125, 2: 87000, 3: 119625, 4: 145000, 8: 290000, 12: 431000, 16: 574000, 20: 717000, 24: 860000 }
+                }
+            },
+            'esl-b': {
+                name: 'ESL B course',
+                description: 'マンツーマン(50分×6)とグループ(50分×1)でより集中的に学習するコースです。',
+                isNew: false,
+                prices: {
+                    single: { 1: 61100, 2: 112800, 3: 155100, 4: 188000, 8: 376000, 12: 560000, 16: 746000, 20: 932000, 24: 1118000 },
+                    double: { 1: 54600, 2: 100800, 3: 138600, 4: 168000, 8: 336000, 12: 500000, 16: 666000, 20: 832000, 24: 998000 },
+                    triple: { 1: 51350, 2: 94800, 3: 130350, 4: 158000, 8: 316000, 12: 470000, 16: 626000, 20: 782000, 24: 938000 }
+                }
+            },
+            'esl-c': {
+                name: 'ESL C course',
+                description: 'マンツーマン(50分×7)とグループ(50分×1)で徹底的に英語力を鍛えるコースです。',
+                isNew: false,
+                prices: {
+                    single: { 1: 65325, 2: 120600, 3: 165825, 4: 201000, 8: 402000, 12: 599000, 16: 798000, 20: 997000, 24: 1196000 },
+                    double: { 1: 58825, 2: 108600, 3: 149325, 4: 181000, 8: 362000, 12: 539000, 16: 718000, 20: 897000, 24: 1076000 },
+                    triple: { 1: 55575, 2: 102600, 3: 141075, 4: 171000, 8: 342000, 12: 509000, 16: 678000, 20: 847000, 24: 1016000 }
+                }
+            },
+            'esl-d': {
+                name: 'ESL D course',
+                description: 'マンツーマン(50分×8)で完全にカスタマイズされた学習が可能なコースです。',
+                isNew: false,
+                prices: {
+                    single: { 1: 68250, 2: 136500, 3: 189000, 4: 210000, 8: 420000, 12: 626000, 16: 834000, 20: 1042000, 24: 1250000 },
+                    double: { 1: 61750, 2: 123500, 3: 171000, 4: 190000, 8: 380000, 12: 566000, 16: 754000, 20: 942000, 24: 1130000 },
+                    triple: { 1: 58500, 2: 117000, 3: 162000, 4: 180000, 8: 360000, 12: 536000, 16: 714000, 20: 892000, 24: 1070000 }
+                }
+            },
+            'test-a': {
+                name: 'IELTS/TOEIC A course',
+                description: 'マンツーマン(50分×5)とグループ(50分×1)で試験対策に特化したコースです。優秀な試験対策専門の選抜チームが担当します。',
+                isNew: false,
+                prices: {
+                    single: { 1: 61100, 2: 112800, 3: 155100, 4: 188000, 8: 376000, 12: 560000, 16: 746000, 20: 932000, 24: 1118000 },
+                    double: { 1: 54600, 2: 100800, 3: 138600, 4: 168000, 8: 336000, 12: 500000, 16: 666000, 20: 832000, 24: 998000 },
+                    triple: { 1: 51350, 2: 94800, 3: 130350, 4: 158000, 8: 316000, 12: 470000, 16: 626000, 20: 782000, 24: 938000 }
+                }
+            },
+            'test-b': {
+                name: 'IELTS/TOEIC B course',
+                description: 'マンツーマン(50分×6)とグループ(50分×1)で試験対策に特化したコースです。',
+                isNew: false,
+                prices: {
+                    single: { 1: 65325, 2: 120600, 3: 165825, 4: 201000, 8: 402000, 12: 599000, 16: 798000, 20: 997000, 24: 1196000 },
+                    double: { 1: 58825, 2: 108600, 3: 149325, 4: 181000, 8: 362000, 12: 539000, 16: 718000, 20: 897000, 24: 1076000 },
+                    triple: { 1: 55575, 2: 102600, 3: 141075, 4: 171000, 8: 342000, 12: 509000, 16: 678000, 20: 847000, 24: 1016000 }
+                }
+            },
+            'test-c': {
+                name: 'IELTS/TOEIC C course',
+                description: 'マンツーマン(50分×7)とグループ(50分×1)で試験対策に特化したコースです。',
+                isNew: false,
+                prices: {
+                    single: { 1: 69550, 2: 128400, 3: 176550, 4: 214000, 8: 428000, 12: 638000, 16: 850000, 20: 1062000, 24: 1274000 },
+                    double: { 1: 63050, 2: 116400, 3: 160050, 4: 194000, 8: 388000, 12: 578000, 16: 770000, 20: 962000, 24: 1154000 },
+                    triple: { 1: 59800, 2: 110400, 3: 151800, 4: 184000, 8: 368000, 12: 548000, 16: 730000, 20: 912000, 24: 1094000 }
+                }
+            },
+            'test-d': {
+                name: 'IELTS/TOEIC D course',
+                description: 'マンツーマン(50分×8)で試験対策に特化したコースです。',
+                isNew: false,
+                prices: {
+                    single: { 1: 72475, 2: 144950, 3: 200700, 4: 223000, 8: 446000, 12: 665000, 16: 886000, 20: 1107000, 24: 1328000 },
+                    double: { 1: 65975, 2: 131950, 3: 182700, 4: 203000, 8: 406000, 12: 605000, 16: 806000, 20: 1007000, 24: 1208000 },
+                    triple: { 1: 62725, 2: 125450, 3: 173700, 4: 193000, 8: 386000, 12: 575000, 16: 766000, 20: 957000, 24: 1148000 }
+                }
+            }
+        };
+
+        // 価格計算機能
+        const courseSelect = document.getElementById('courseSelect');
+        const roomSelect = document.getElementById('roomSelect');
+        const periodSelect = document.getElementById('periodSelect');
+        const priceResult = document.getElementById('priceResult');
+        const priceAmount = document.getElementById('priceAmount');
+        const courseDescription = document.getElementById('courseDescription');
+
+        function calculatePrice() {
+            const course = courseSelect.value;
+            const room = roomSelect.value;
+            const period = periodSelect.value;
+
+            if (course && room && period) {
+                const courseData = priceData[course];
+                const price = courseData.prices[room][period];
+
+                // 価格を表示
+                priceAmount.textContent = '¥' + price.toLocaleString();
+
+                // コース説明を表示
+                let descriptionHTML = '';
+                if (courseData.isNew) {
+                    descriptionHTML += '<span class="new-badge">新コース</span><br>';
+                }
+                descriptionHTML += '<strong>' + courseData.name + '</strong><br>' + courseData.description;
+                courseDescription.innerHTML = descriptionHTML;
+
+                // 結果を表示
+                priceResult.classList.remove('hidden');
+
+                // スムーズにスクロール
+                setTimeout(() => {
+                    priceResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+        }
+
+        // イベントリスナーを追加
+        courseSelect.addEventListener('change', calculatePrice);
+        roomSelect.addEventListener('change', calculatePrice);
+        periodSelect.addEventListener('change', calculatePrice);
+    </script>
+</body>
+</html>
