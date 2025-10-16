@@ -82,56 +82,64 @@ def main():
         driver.find_element(By.NAME, "login").click()
         time.sleep(5)
         
-        # 写真ページにアクセス（複数のURLを試す）
-        photo_urls = [
-            "https://www.facebook.com/bacoloderoom/photos_by",
-            "https://www.facebook.com/bacoloderoom/photos",
-            "https://www.facebook.com/bacoloderoom/photos_all"
-        ]
+        # 写真ページにアクセス（photos_byのみ）
+        target_url = "https://www.facebook.com/bacoloderoom/photos_by"
+        print(f"アクセス中: {target_url}")
+        driver.get(target_url)
+        time.sleep(8)  # 待機時間を延長
         
-        for url in photo_urls:
-            try:
-                print(f"アクセス中: {url}")
-                driver.get(url)
-                time.sleep(5)
-                
-                # 要素数をチェック
-                test_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
-                print(f"URL {url} で {len(test_elements)} 個の要素を発見")
-                
-                if len(test_elements) >= 15:  # 十分な要素が見つかったら使用
-                    print(f"十分な要素が見つかりました: {url}")
-                    break
-                    
-            except Exception as e:
-                print(f"URL {url} でエラー: {e}")
-                continue
+        # ページが完全に読み込まれるまで待機
+        WebDriverWait(driver, 15).until(
+            lambda driver: driver.execute_script("return document.readyState") == "complete"
+        )
         
-        # より多くの画像を表示するためにスクロール（段階的に実行）
-        print("ページをスクロールして画像を読み込み中...")
-        max_scroll_attempts = 50  # スクロール回数を増加
-        elements_found = 0
+        # 初期の要素数をチェック
+        initial_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
+        if not initial_elements:
+            initial_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a")
+        
+        print(f"初期要素数: {len(initial_elements)}")
+        
+        # 要素数が少ない場合は追加の待機
+        if len(initial_elements) < 5:
+            print("要素数が少ないため、追加の待機時間を設けます...")
+            time.sleep(10)
+            
+            # 再確認
+            initial_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
+            if not initial_elements:
+                initial_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a")
+            print(f"追加待機後の要素数: {len(initial_elements)}")
+        
+        # photos_byページに特化したスクロール戦略
+        print("photos_byページをスクロールして画像を読み込み中...")
+        max_scroll_attempts = 40  # スクロール回数を増加
+        elements_found = len(initial_elements)
         no_change_count = 0
         last_scroll_height = 0
+        
+        print(f"スクロール開始時の要素数: {elements_found}")
         
         for i in range(max_scroll_attempts):
             # 現在のスクロール位置を記録
             current_scroll_height = driver.execute_script("return document.body.scrollHeight")
             
-            # より積極的にスクロール
+            # photos_byページに特化したスクロール
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(2.5)  # 待機時間を延長
+            time.sleep(4.0)  # より長い待機時間
             
-            # 追加のスクロール（ページの中央部分もスクロール）
-            driver.execute_script("window.scrollBy(0, 1500);")
-            time.sleep(1.0)
+            # 追加のスクロール（Facebookの遅延読み込みに対応）
+            driver.execute_script("window.scrollBy(0, 3000);")
+            time.sleep(2.0)
             
             # さらに追加スクロール
-            driver.execute_script("window.scrollBy(0, -500);")
-            time.sleep(0.8)
+            driver.execute_script("window.scrollBy(0, -1000);")
+            time.sleep(1.5)
             
-            # 要素数をチェック（正確なセレクターを使用）
+            # 要素数をチェック（複数のセレクターで確認）
             current_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
+            if not current_elements:
+                current_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a")
             
             print(f"スクロール {i + 1}/{max_scroll_attempts} 完了 - 要素数: {len(current_elements)} (スクロール高: {current_scroll_height})")
             
@@ -147,19 +155,41 @@ def main():
             elements_found = len(current_elements)
             last_scroll_height = current_scroll_height
             
-            # 30個以上見つかったら早期終了
-            if len(current_elements) >= 30:
+            # 25個以上見つかったら早期終了
+            if len(current_elements) >= 25:
                 print("十分な要素が見つかりました")
                 break
             
             # 追加の待機時間でコンテンツの読み込みを確実にする
-            if i % 5 == 4:  # 5回ごとに追加待機
+            if i % 4 == 3:  # 4回ごとに追加待機
                 print("追加の待機時間...")
-                time.sleep(3)
+                time.sleep(5)
         
-        # 画像要素を検出（動作しているa[role='link']方法のみを使用）
+        # 画像要素を検出（複数のセレクターで確認）
         thumbnail_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
+        if not thumbnail_elements:
+            thumbnail_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a")
         print(f"見つかった要素数: {len(thumbnail_elements)}")
+        
+        # 要素が見つからない場合は、より広範囲なセレクターを試す
+        if len(thumbnail_elements) < 5:
+            print("要素数が少ないため、より広範囲なセレクターを試します...")
+            alternative_selectors = [
+                "div[data-pagelet*='ProfileApp'] a[role='link']",
+                "div[data-pagelet*='ProfileApp'] a",
+                "a[href*='/photos/']",
+                "a[href*='photo.php']"
+            ]
+            
+            for selector in alternative_selectors:
+                try:
+                    alt_elements = driver.find_elements(By.CSS_SELECTOR, selector)
+                    print(f"セレクター '{selector}' で {len(alt_elements)} 個の要素を発見")
+                    if len(alt_elements) > len(thumbnail_elements):
+                        thumbnail_elements = alt_elements
+                        print(f"より多くの要素が見つかりました: {len(thumbnail_elements)}個")
+                except Exception as e:
+                    print(f"セレクター '{selector}' でエラー: {e}")
         
         # 初期検証は最小限に（後で詳細にチェック）
         print(f"初期要素数: {len(thumbnail_elements)}")
@@ -198,54 +228,31 @@ def main():
         
         # 利用可能な要素を取得
         def get_available_elements():
-            """利用可能な要素を取得（正確なセレクターを優先）"""
+            """利用可能な要素を取得（複数のセレクターを試行）"""
             elements = []
             
-            # 方法1: 正確なセレクター（キャプチャで確認された構造）
-            try:
-                elements1 = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
-                if elements1:
-                    elements = elements1
-                    print(f"方法1（正確なセレクター）で{len(elements1)}個の要素を発見")
-                    return elements  # 正確なセレクターが見つかったら即座に返す
-            except Exception as e:
-                print(f"方法1でエラー: {e}")
+            # 複数のセレクターを試行
+            selectors = [
+                ("div[data-pagelet='ProfileAppSection_0'] a[role='link']", "正確なセレクター"),
+                ("div[data-pagelet='ProfileAppSection_0'] a", "広範囲セレクター1"),
+                ("div[data-pagelet='ProfileAppSection_0'] [role='link']", "広範囲セレクター2"),
+                ("div[data-pagelet*='ProfileApp'] a[role='link']", "ProfileAppセレクター"),
+                ("div[data-pagelet*='ProfileApp'] a", "ProfileApp広範囲"),
+                ("a[href*='/photos/']", "写真リンクセレクター"),
+                ("a[href*='photo.php']", "photo.phpセレクター")
+            ]
             
-            # 方法2: より広範囲なセレクター
-            try:
-                elements2 = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a")
-                if len(elements2) > len(elements):
-                    elements = elements2
-                    print(f"方法2で{len(elements2)}個の要素を発見")
-            except Exception as e:
-                print(f"方法2でエラー: {e}")
-            
-            # 方法3: さらに広範囲なセレクター
-            try:
-                elements3 = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] [role='link']")
-                if len(elements3) > len(elements):
-                    elements = elements3
-                    print(f"方法3で{len(elements3)}個の要素を発見")
-            except Exception as e:
-                print(f"方法3でエラー: {e}")
-            
-            # 方法4: 異なるdata-pageletを試す
-            try:
-                elements4 = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet*='ProfileApp'] a[role='link']")
-                if len(elements4) > len(elements):
-                    elements = elements4
-                    print(f"方法4で{len(elements4)}個の要素を発見")
-            except Exception as e:
-                print(f"方法4でエラー: {e}")
-            
-            # 方法5: より一般的なセレクター
-            try:
-                elements5 = driver.find_elements(By.CSS_SELECTOR, "a[href*='/photos/']")
-                if len(elements5) > len(elements):
-                    elements = elements5
-                    print(f"方法5で{len(elements5)}個の要素を発見")
-            except Exception as e:
-                print(f"方法5でエラー: {e}")
+            for selector, description in selectors:
+                try:
+                    found_elements = driver.find_elements(By.CSS_SELECTOR, selector)
+                    if len(found_elements) > len(elements):
+                        elements = found_elements
+                        print(f"{description}で{len(found_elements)}個の要素を発見")
+                        # 十分な要素が見つかったら早期終了
+                        if len(found_elements) >= 10:
+                            break
+                except Exception as e:
+                    print(f"{description}でエラー: {e}")
             
             return elements
         
@@ -258,19 +265,19 @@ def main():
         available_count = len(current_elements)
         print(f"最終的な利用可能な要素数: {available_count}個")
         
-        # 要素数が少ない場合は追加のスクロールを試行
+        # photos_byページで要素数が少ない場合は追加のスクロールを試行
         if available_count < 15:
-            print("要素数が少ないため、追加のスクロールを実行します...")
-            for i in range(10):
+            print("photos_byページで要素数が少ないため、追加のスクロールを実行します...")
+            for i in range(15):  # スクロール回数を増加
                 driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                time.sleep(3)  # 待機時間を延長
+                driver.execute_script("window.scrollBy(0, 2000);")
                 time.sleep(2)
-                driver.execute_script("window.scrollBy(0, 1000);")
-                time.sleep(1)
                 
                 # 要素数を再確認
                 current_elements = get_available_elements()
                 new_count = len(current_elements)
-                print(f"追加スクロール {i + 1}/10 - 要素数: {new_count}")
+                print(f"追加スクロール {i + 1}/15 - 要素数: {new_count}")
                 
                 if new_count > available_count:
                     available_count = new_count
@@ -279,6 +286,11 @@ def main():
                 if available_count >= 20:
                     print("十分な要素が見つかりました")
                     break
+                
+                # 5回ごとに追加の待機
+                if i % 5 == 4:
+                    print("追加の待機時間...")
+                    time.sleep(5)
         
         # 利用可能な要素数に応じて間隔を調整
         if available_count >= 23:
