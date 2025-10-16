@@ -94,64 +94,21 @@ def main():
             time.sleep(3)  # より長く待機
             print(f"スクロール {i + 1}/5 完了")
         
-        # 堅牢な画像要素検出システム
-        def find_image_elements():
-            """複数の方法で画像要素を検出する"""
-            methods = [
-                # 方法1: 直接的なリンク要素
-                ("a[role='link']", "div[data-pagelet='ProfileAppSection_0'] a[role='link']"),
-                
-                # 方法2: 画像を含むdiv要素内のリンク
-                ("div内のa要素", "div[data-pagelet='ProfileAppSection_0'] div[style*='min-width: 168px'] a"),
-                
-                # 方法3: 画像を含むdiv要素内のクリック可能要素
-                ("div内のクリック要素", "div[data-pagelet='ProfileAppSection_0'] div[style*='min-width: 168px'] [role='button']"),
-                
-                # 方法4: 画像要素自体（親要素を取得）
-                ("img要素の親", "div[data-pagelet='ProfileAppSection_0'] img"),
-                
-                # 方法5: より広範囲なdiv要素
-                ("広範囲div", "div[data-pagelet='ProfileAppSection_0'] div[class*='x9f619']"),
-                
-                # 方法6: 画像を含む可能性のあるdiv要素
-                ("画像div", "div[data-pagelet='ProfileAppSection_0'] div[style*='padding: 4px']")
-            ]
-            
-            for method_name, selector in methods:
-                try:
-                    elements = driver.find_elements(By.CSS_SELECTOR, selector)
-                    print(f"{method_name}: {len(elements)}個の要素を発見")
-                    
-                    if len(elements) >= 5:  # 最低5個は必要
-                        # 要素の検証
-                        valid_elements = []
-                        for i, element in enumerate(elements[:20]):  # 最初の20個をチェック
-                            try:
-                                # 要素が表示されているかチェック
-                                if element.is_displayed() and element.is_enabled():
-                                    # 要素内に画像があるかチェック
-                                    img_in_element = element.find_elements(By.TAG_NAME, "img")
-                                    if img_in_element or method_name == "img要素の親":
-                                        valid_elements.append(element)
-                                        if len(valid_elements) >= 10:  # 十分な数が見つかったら終了
-                                            break
-                            except Exception as e:
-                                continue
-                        
-                        if len(valid_elements) >= 5:
-                            print(f"{method_name}で有効な要素: {len(valid_elements)}個")
-                            return valid_elements, method_name
-                            
-                except Exception as e:
-                    print(f"{method_name}でエラー: {e}")
-                    continue
-            
-            return [], "見つからず"
+        # 画像要素を検出（動作しているa[role='link']方法のみを使用）
+        thumbnail_elements = driver.find_elements(By.CSS_SELECTOR, "div[data-pagelet='ProfileAppSection_0'] a[role='link']")
+        print(f"見つかった要素数: {len(thumbnail_elements)}")
         
-        # 画像要素を検出
-        thumbnail_elements, detection_method = find_image_elements()
-        print(f"検出方法: {detection_method}")
-        print(f"最終的に見つかった要素数: {len(thumbnail_elements)}")
+        # 要素の検証
+        valid_elements = []
+        for element in thumbnail_elements:
+            try:
+                if element.is_displayed() and element.is_enabled():
+                    valid_elements.append(element)
+            except Exception:
+                continue
+        
+        thumbnail_elements = valid_elements
+        print(f"有効な要素数: {len(thumbnail_elements)}")
         
         # 既存ファイルのハッシュ値をチェック
         existing_hashes = set()
@@ -167,92 +124,47 @@ def main():
         existing_image_count = len(list(save_dir.glob("*.jpg")))
         print(f"既存画像: {existing_image_count}枚")
         
-        # 取得する画像の位置を定義（利用可能な画像数に応じて調整）
-        available_count = len(thumbnail_elements)
-        if available_count >= 40:
-            target_positions = [0, 9, 19, 29, 39]  # 1枚目、10枚目、20枚目、30枚目、40枚目
-        elif available_count >= 20:
-            target_positions = [0, 4, 9, 14, 19]  # 1枚目、5枚目、10枚目、15枚目、20枚目
-        elif available_count >= 10:
-            target_positions = [0, 2, 4, 6, 8]    # 1枚目、3枚目、5枚目、7枚目、9枚目
-        else:
-            target_positions = list(range(min(available_count, 5)))  # 利用可能な分だけ取得
-        
-        print(f"利用可能な画像数: {available_count}")
-        print(f"取得対象の位置: {[pos + 1 for pos in target_positions]}枚目")
-        
-        # 画像をダウンロード - 指定された位置の画像のみを取得
+        # 5枚の画像が保存されるまで処理を続ける
+        TARGET_COUNT = 5
         downloaded_count = 0
         processed_count = 0
+        current_position = 0
         
-        for position in target_positions:
-            if position >= len(thumbnail_elements):
-                print(f"位置 {position + 1} の画像が見つかりません（利用可能な画像数: {len(thumbnail_elements)}）")
-                continue
-                
-            thumbnail_element = thumbnail_elements[position]
+        print(f"利用可能な画像数: {len(thumbnail_elements)}")
+        print(f"目標: {TARGET_COUNT}枚の画像を取得")
+        
+        while downloaded_count < TARGET_COUNT and current_position < len(thumbnail_elements):
+            thumbnail_element = thumbnail_elements[current_position]
             try:
                 processed_count += 1
-                print(f"画像 {position + 1} を処理中... (新規取得: {downloaded_count}枚)")
+                print(f"画像 {current_position + 1} を処理中... (新規取得: {downloaded_count}枚)")
                 
-                # サムネ画像をクリックして高画質画像を表示（検出方法に応じて適応）
+                # サムネ画像をクリックして高画質画像を表示
                 try:
-                    if detection_method == "img要素の親":
-                        # img要素の場合は、親要素をクリック
-                        parent_element = thumbnail_element.find_element(By.XPATH, "./..")
-                        driver.execute_script("arguments[0].click();", parent_element)
-                    else:
-                        # その他の場合は直接クリック
-                        driver.execute_script("arguments[0].click();", thumbnail_element)
-                    
+                    driver.execute_script("arguments[0].click();", thumbnail_element)
                     time.sleep(3)  # モーダルが開くまで待機
                     
                 except Exception as e:
-                    print(f"画像 {position + 1}: クリックエラー: {e}")
+                    print(f"画像 {current_position + 1}: クリックエラー: {e}")
+                    current_position += 1
                     continue
                 
-                # 高画質画像の要素を待機して取得（複数の方法を試す）
+                # 高画質画像の要素を待機して取得
                 try:
-                    high_res_img = None
-                    img_src = None
-                    
-                    # 方法1: MediaViewerPhotoの配下から高画質画像を取得
-                    try:
-                        high_res_img = wait.until(
-                            EC.presence_of_element_located((By.CSS_SELECTOR, "div[data-pagelet='MediaViewerPhoto'] img[src*='scontent']"))
-                        )
-                        img_src = high_res_img.get_attribute('src')
-                    except TimeoutException:
-                        pass
-                    
-                    # 方法2: より広範囲なセレクターで画像を探す
-                    if not img_src:
-                        try:
-                            high_res_img = wait.until(
-                                EC.presence_of_element_located((By.CSS_SELECTOR, "div[role='dialog'] img[src*='scontent']"))
-                            )
-                            img_src = high_res_img.get_attribute('src')
-                        except TimeoutException:
-                            pass
-                    
-                    # 方法3: モーダル内の画像を探す
-                    if not img_src:
-                        try:
-                            high_res_img = wait.until(
-                                EC.presence_of_element_located((By.CSS_SELECTOR, "[role='dialog'] img"))
-                            )
-                            img_src = high_res_img.get_attribute('src')
-                        except TimeoutException:
-                            pass
-                    
-                    if not img_src:
-                        print(f"画像 {position + 1}: 高画質画像のURLが見つかりません")
-                        close_modal_safely(driver)
-                        continue
+                    # MediaViewerPhotoの配下から高画質画像を取得
+                    high_res_img = wait.until(
+                        EC.presence_of_element_located((By.CSS_SELECTOR, "div[data-pagelet='MediaViewerPhoto'] img[src*='scontent']"))
+                    )
                     
                     # 画像の読み込み完了を待つ
-                    if high_res_img:
-                        wait.until(lambda driver: high_res_img.get_attribute('complete') == 'true')
+                    wait.until(lambda driver: high_res_img.get_attribute('complete') == 'true')
+                    img_src = high_res_img.get_attribute('src')
+                    
+                    if not img_src:
+                        print(f"画像 {current_position + 1}: 高画質画像のURLが見つかりません")
+                        close_modal_safely(driver)
+                        current_position += 1
+                        continue
                     
                     # 画像をダウンロード
                     response = requests.get(img_src)
@@ -264,6 +176,7 @@ def main():
                     if original_hash in existing_hashes:
                         print(f"スキップ: 既存の画像 (ハッシュ: {original_hash[:8]}...)")
                         close_modal_safely(driver)
+                        current_position += 1
                         continue
                     
                     # ファイル名を生成
@@ -294,20 +207,30 @@ def main():
                     close_modal_safely(driver)
                     
                 except TimeoutException:
-                    print(f"画像 {position + 1}: 高画質画像の読み込みがタイムアウトしました")
+                    print(f"画像 {current_position + 1}: 高画質画像の読み込みがタイムアウトしました")
                     close_modal_safely(driver)
+                    current_position += 1
                     continue
                 except Exception as e:
-                    print(f"画像 {position + 1}: 画像処理エラー: {e}")
+                    print(f"画像 {current_position + 1}: 画像処理エラー: {e}")
                     close_modal_safely(driver)
+                    current_position += 1
                     continue
                 
             except Exception as e:
-                print(f"画像 {position + 1} の処理に失敗: {e}")
+                print(f"画像 {current_position + 1} の処理に失敗: {e}")
                 close_modal_safely(driver)
+                current_position += 1
                 continue
+            
+            # 次の画像に進む
+            current_position += 1
         
         print(f"新規ダウンロード: {downloaded_count}件")
+        if downloaded_count >= TARGET_COUNT:
+            print(f"目標達成: {TARGET_COUNT}枚の画像を取得しました")
+        else:
+            print(f"警告: 目標の{TARGET_COUNT}枚に達しませんでした（取得: {downloaded_count}枚）")
         
     except Exception as e:
         print(f"エラー: {e}")
