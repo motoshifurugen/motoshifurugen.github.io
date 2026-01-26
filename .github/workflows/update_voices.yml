@@ -7,7 +7,7 @@ on:
   # 定期実行
   schedule:
   # 次の日の0時
-  -cron: '0 15 * * *' 
+    - cron: '0 15 * * *' 
 
 permissions:
   contents: write
@@ -37,8 +37,8 @@ jobs:
 
     - name: Commit and push changes
       run: |
-      git config --local user.email "action@github.com"
-      git config --local user.name "Github Action"
-      git add contents/person.json
-      git diff --staged --quiet || git commit -m "Update student voices data[skip ci]"
-      git push
+        git config --local user.email "action@github.com"
+        git config --local user.name "Github Action"
+        git add contents/person.json
+        git diff --staged --quiet || git commit -m "Update student voices data[skip ci]"
+        git push
