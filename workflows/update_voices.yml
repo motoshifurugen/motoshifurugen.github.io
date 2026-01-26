@@ -1,0 +1,14 @@
+name: Update Students Voices
+
+on:
+  # 手動実行
+  workflow_dispatch:
+
+  # 定期実行
+  schedule:
+  # 次の日の0時
+  -cron: '0 15 * * *' 
+
+jobs:
+  update-voices:
+    runs-on: ubuntulatest
