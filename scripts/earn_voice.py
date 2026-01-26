@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import os
+from pathlib import Path
 
 URL = "https://e-roomjp.com/experiences/"
 page = requests.get(URL)
@@ -48,6 +50,9 @@ if contents:
         }
         persons.append(person_data)
         
-    with open("contents/person.json", "w", encoding="utf-8") as f:
+    output_path = Path(__file__).parent.parent/"contents"/"person.json"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(output_path, "w", encoding="utf-8") as f:
         json.dump(persons, f, ensure_ascii=False, indent=2)
 

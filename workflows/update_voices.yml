@@ -9,6 +9,36 @@ on:
   # 次の日の0時
   -cron: '0 15 * * *' 
 
+permissions:
+  contents: write
+
 jobs:
   update-voices:
-    runs-on: ubuntulatest
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install beautifulsoup4 requests
+
+      - name: Run voice scraping script
+        run: |
+          cd scripts
+          python earn_voice.py
+
+      - name: Commit and push changes
+        run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "Github Action"
+        git add contents/person.json
+        git diff --staged --quiet || git commit -m "Update student voices data[skip ci]"
+        git push
