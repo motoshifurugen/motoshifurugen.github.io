@@ -35,6 +35,8 @@ if contents:
             advice = span.find_next("p").text
             if len(advice) > 100:
                 advice_short = advice[:100] + '...'
+            else:
+                advice_short = advice
         person_data = {
             "name": name,
             "gender": gender,

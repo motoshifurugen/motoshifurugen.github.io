@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-ROOM - 英語学習施設</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+    <!-- ヘッダー -->
+    <header>
+        <nav>
+            <a href="#top" class="logo">E-ROOM</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#student-voices">Voices</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#guide">Guide</a></li>
+                <li><a href="#price">Price</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- メインビジュアル -->
+    <section class="hero">
+        <div class="hero-slideshow" id="heroSlideshow">
+            <!-- スライドはJavaScriptで動的に生成 -->
+        </div>
+        <div class="hero-content">
+            <!-- ここに建物の画像を配置 -->
+        </div>
+    </section>
+
+    <!-- Campus Tour -->
+    <section class="campus-tour" id="campus-tour">
+        <div class="tour-container">
+            <div class="tour-text">
+                <div class="tour-accent"></div>
+                <h2 class="tour-title">CAMPUS  <br class="d-none d-md-inline">TOUR</h2>
+                <p class="tour-subtitle">学校紹介</p>
+                <p class="tour-description">動画で学校の雰囲気や設備をリアルにご紹介します。</p>
+            </div>
+            <div class="tour-video">
+                <iframe
+                    src="https://www.youtube.com/embed/gYPa3lBaLFE?si=wesR5axIHPKsdMPc"
+                    title="E-ROOM Campus Tour"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Voices -->
+    <section class="student-voices" id="student-voices">
+        <div class="voices-container">
+            <div class="voices-header">
+                <div class="voices-accent"></div>
+                <h2 class="voices-title">STUDENT VOICES</h2>
+                <p class="voices-subtitle">体験談</p>
+                <p class="voices-description">実際に学んだ学生のリアルな体験談をお届けします。</p>
+            </div>
+
+            <div class="voices-grid">
+                
+            </div>
+            <div class="view-more">
+                <a href="#" class="btn">VIEW MORE</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real Reviews -->
+    <section class="real-reviews" id="reviews">
+        <div class="reviews-container">
+            <div class="reviews-header">
+                <div class="reviews-accent"></div>
+                <h2 class="reviews-title">REAL REVIEWS</h2>
+                <p class="reviews-subtitle">リアルな口コミ</p>
+                <p class="reviews-description">良い点も悪い点も正直に。入学前に知っておきたいリアル情報をまとめました。</p>
+            </div>
+            <div class="reviews-list">
+                <div class="review-card">
+                    <div class="review-avatar">
+                        <img src="images/realReviews/man.jpg" alt="男性">
+                    </div>
+                    <div class="review-body">
+                        <div class="review-header-info">
+                            <div class="review-meta">20代・男性</div>
+                        </div>
+                        <div class="review-text">
+                            フィリピンは電気代が高額です。私は二人部屋で生活していましたが、
+                            部屋にいる時、寝る時は冷房をつけていました。冷蔵庫も備え付けの小さい
+                            冷蔵庫を24時間つけていました。この状態で1ヶ月に光熱費が
+                            二人で9000₱(22500円程度)しました。電気メーターで料金を決めているのですが、
+                            入室時に自分の部屋の電気メーターを確認する作業がなく、学校側が手書きのノートで
+                            管理しています。入室時に確認させてもらうように言うと確認できると思うので
+                            おすすめです。
+                        </div>
+                    </div>
+                </div>
+                <div class="review-separator">
+                    <div class="separator-avatar">
+                        <img src="images/realReviews/woman.jpg" alt="装飾">
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-avatar">
+                        <img src="images/realReviews/woman.jpg" alt="女性">
+                    </div>
+                    <div class="review-body">
+                        <div class="review-header-info">
+                            <div class="review-meta">20代・女性</div>
+                        </div>
+                        <div class="review-text">
+                            近隣に飲食店が多く、夜中まで音楽の音が鳴っていることや、ニワトリや犬が夜中１時から鳴き出して、二重奏になっていました。
+                            私は気にせず就寝できましたが、気になる人は防音対策(耳栓や寝る際に音楽をかけるなど)が必要だと感じます。
+                            フィリピンの食事は油っぽく、お腹が緩いことが多かったため、整腸剤など持参することをお勧めします。
+                            学校にはウォーターサーバーがあるのですがお腹が緩くなったら市販の水を購入して飲んでいる人が多くいました。
+                        </div>
+                    </div>
+                </div>
+                <div class="review-separator">
+                    <div class="separator-avatar">
+                        <img src="images/realReviews/woman.jpg" alt="装飾">
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-avatar">
+                        <img src="images/realReviews/man.jpg" alt="男性">
+                    </div>
+                    <div class="review-body">
+                        <div class="review-header-info">
+                            <div class="review-meta">20代・男性</div>
+                        </div>
+                        <div class="review-text">
+                            学校には日本人、台湾人が半々程度で在籍していました。その他は
+                            ベトナム、韓国、中国が少しずつ在籍していました。
+                            中国人は生徒、マネージャーで二人いましたが、二人共部屋の鍵を閉めていませんでした。
+                            廊下には監視カメラがあり、経営者もそれがあるので鍵は閉めなくて良いと言っていました。
+                            ですが、同部屋の生徒はお金が何度かに分けて紛失しており、合計10000₱(25000円)紛失したと言っていました。
+                            一人部屋以外の人はセキュリティをしっかり持って行った方がいいと感じました。
+                            (スーツケースの鍵付きの収納にお金を収納したり、金庫など)
+                            様々な文化の方が在籍するので一人部屋以外を選択される際は注意してください。
+                        </div>
+                    </div>
+                </div>
+                <div class="review-separator">
+                    <div class="separator-avatar">
+                        <img src="images/realReviews/woman.jpg" alt="装飾">
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-avatar">
+                        <img src="images/realReviews/man.jpg" alt="男性">
+                    </div>
+                    <div class="review-body">
+                        <div class="review-header-info">
+                            <div class="review-meta">20代・男性</div>
+                        </div>
+                        <div class="review-text">
+                            入学して少し経過するとグループができたのですが、毎週誰かが
+                            卒業だったのでその度に毎週金曜日に飲み会がありました。
+                            費用は店に寄りますが、一人1000~2000₱程度だったと思います。
+                            ビールはいつもRedHouseというのを飲んでいましたが、日本の
+                            ビールと変わらないくらい美味しかったです。日本に帰って来てからも
+                            飲みたいと思うくらいでした。しかも80₱(200円)とめちゃくちゃ安価でした。
+                            ご飯はinasalという焼き串のpaa(鶏もも)、inasal BBQ(豚の串焼き)が
+                            好きでした。学校の近くにLord Byronというお店があり、スペアリブとバックリブ
+                            (豚肉)が美味しかったです。寮のご飯は味が似たり寄ったりなのですぐ飽きてしまいました。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Local Guide -->
+    <section class="local-guide" id="guide">
+        <div class="guide-container">
+            <div class="guide-text">
+                <div class="guide-header">
+                    <div class="guide-accent"></div>
+                    <h2 class="guide-title">LOCAL GUIDE</h2>
+                    <p class="guide-subtitle">周辺情報</p>
+                </div>
+                <p class="guide-description">
+                    学校周辺の観光地や生活に役立つ情報を紹介します。<br>
+                    ジプニーの乗り方もチェック！
+                </p>
+                <div class="guide-links">
+                    <a href="#" class="guide-link" id="openJeepneyModal">zipnnyの乗り方</a>
+                    <a href="#" class="guide-link" id="openTouristModal">周辺の観光地</a>
+                </div>
+            </div>
+            <div class="guide-image">
+                <img src="images/popup/topPageRuins.jpg" alt="The Ruins">
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Calculator -->
+    <section class="price-calculator" id="price">
+        <div class="section-header">
+            <div class="price-accent"></div>
+            <h2 class="section-title">PRICE</h2>
+            <p class="section-subtitle">料金プラン</p>
+        </div>
+        <div class="calculator-container">
+            <div class="form-group">
+                <label for="courseSelect">コース</label>
+                <select id="courseSelect">
+                    <option value="">コースを選択してください</option>
+                    <optgroup label="ESLコース（一般英語）">
+                        <option value="esl-light">ESL Light course - マンツーマン(50分×3)、グループ(50分×1)</option>
+                        <option value="esl-a">ESL A course - マンツーマン(50分×5)、グループ(50分×1)</option>
+                        <option value="esl-b">ESL B course - マンツーマン(50分×6)、グループ(50分×1)</option>
+                        <option value="esl-c">ESL C course - マンツーマン(50分×7)、グループ(50分×1)</option>
+                        <option value="esl-d">ESL D course - マンツーマン(50分×8)</option>
+                    </optgroup>
+                    <optgroup label="IELTS/TOEICコース（試験対策）">
+                        <option value="test-a">IELTS/TOEIC A course - マンツーマン(50分×5)、グループ(50分×1)</option>
+                        <option value="test-b">IELTS/TOEIC B course - マンツーマン(50分×6)、グループ(50分×1)</option>
+                        <option value="test-c">IELTS/TOEIC C course - マンツーマン(50分×7)、グループ(50分×1)</option>
+                        <option value="test-d">IELTS/TOEIC D course - マンツーマン(50分×8)</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="roomSelect">部屋タイプ</label>
+                <select id="roomSelect">
+                    <option value="">部屋タイプを選択してください</option>
+                    <option value="single">1人部屋</option>
+                    <option value="double">2人部屋</option>
+                    <option value="triple">3人部屋</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="periodSelect">留学期間</label>
+                <select id="periodSelect">
+                    <option value="">期間を選択してください</option>
+                    <option value="1">1週間</option>
+                    <option value="2">2週間</option>
+                    <option value="3">3週間</option>
+                    <option value="4">4週間</option>
+                    <option value="8">8週間</option>
+                    <option value="12">12週間</option>
+                    <option value="16">16週間</option>
+                    <option value="20">20週間</option>
+                    <option value="24">24週間</option>
+                </select>
+            </div>
+
+            <div id="priceResult" class="price-result hidden">
+                <div class="price-label">お見積もり金額</div>
+                <div class="price-amount" id="priceAmount">¥0</div>
+                <div id="courseDescription" class="course-description"></div>
+                <div class="price-details">
+                    ※費用に含まれるもの：授業料+宿泊費用+食事費用(1日3食)<br>
+                    ※チェックイン（空港ピックアップ）は日曜日中（午前・午後いずれも可）<br>
+                    ※チェックアウトは土曜日の午前中
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jeepney Modal -->
+    <div class="modal-overlay" id="jeepneyModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeJeepneyModal">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">LOCAL GUIDE</h2>
+                <p class="modal-subtitle">ジプニーの乗り方</p>
+            </div>
+            <div class="modal-body">
+                <div class="jeepney-images">
+                    <img src="images/popup/jeepney1.jpg" alt="ジプニー（ノーマル）">
+                    <img src="images/popup/jeepney2.jpg" alt="ジプニー（モダン）">
+                </div>
+
+                <div class="jeepney-section">
+                    <h3>ジプニーとは？</h3>
+                    <ul>
+                        <li>ジプニー（Jeepney／ジープとも呼ばれる）は、古いジープを改造した公共交通機関。</li>
+                        <li>約16〜20人乗りで、乗降自由な区間を運行。</li>
+                        <li>都市部では庶民の足として広く使われている。</li>
+                    </ul>
+                </div>
+
+                <div class="jeepney-section">
+                    <h3>Step</h3>
+
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>停め方・行き先確認</h4>
+                            <p>ジプニーが停まる場所（人が待っている所）を探す。<br>
+                            運転手またはスタッフに「To SM?（SMまで行きますか？）」と聞く。</p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>乗り込み方</h4>
+                            <ul>
+                                <li><strong>ノーマルジプニー：</strong>後ろから乗車。狭くて足が当たることが多い。助手席は快適だが右側にドアがない。</li>
+                                <li><strong>モダンジプニー：</strong>横から乗車。エアコン付きで快適。助手席や前方は隣と密着しにくい。</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>運賃の支払い</h4>
+                            <ul>
+                                <li><strong>料金：</strong>ノーマル ₱10／モダン ₱12〜₱14</li>
+                                <li>乗るときに「Student, to SM」と伝える（学生割引のため）。</li>
+                                <li><strong>ノーマル：</strong>お金を乗客同士で運転手に回す。</li>
+                                <li><strong>モダン：</strong>回収係が集金に来る。レシートは受け取るだけでOK。</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>降り方</h4>
+                            <p>「I wanna leave」と言えば止まってくれる。<br>
+                            決まった停留所以外でも基本的に下車OK。<br>
+                            地図で降りる場所を確認しておこう。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tourist Modal -->
+    <div class="modal-overlay" id="touristModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeTouristModal">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">LOCAL GUIDE</h2>
+                <p class="modal-subtitle">周辺の観光地</p>
+            </div>
+            <div class="modal-body">
+                <div class="tourist-spot">
+                    <div class="tourist-image">
+                        <img src="images/popup/TheRuins.jpg" alt="ザ・ルーインズ">
+                    </div>
+                    <h3 class="tourist-title">ザ・ルーインズ</h3>
+                    <p class="tourist-description">
+                        ザ・ルーインズは、バコロドで人気の観光名所です。スペイン統治時代にスペイン人富豪が、亡き妻と10人の子どもたちのために建てた邸宅でした。太平洋戦争中、ゲリラ軍が日本軍の利用を防ぐために焼き払いましたが、現在は美しい廃墟として一般公開されています。
+                    </p>
+                </div>
+
+                <div class="tourist-spot">
+                    <div class="tourist-image">
+                        <img src="images/popup/SMmall.jpg" alt="SMシティ・バコロド">
+                    </div>
+                    <h3 class="tourist-title">SMシティ・バコロド</h3>
+                    <p class="tourist-description">
+                        ショッピングなら、海沿いのSMシティ・バコロドがおすすめです。流行のショップやスーパー、人気の日本食レストランなどが揃い、広いフードコートもあります。他にも「シティモール」「ガイサノノール」「シティモール」など学校から歩いていけるショッピングモールもおすすめです。
+                    </p>
+                </div>
+
+                <div class="tourist-spot">
+                    <div class="tourist-image">
+                        <img src="images/popup/SanSebastianCathedral.jpg" alt="サン・セバスチャン大聖堂">
+                    </div>
+                    <h3 class="tourist-title">サン・セバスチャン大聖堂</h3>
+                    <p class="tourist-description">
+                        サン・セバスチャン大聖堂は、19世紀後半に建てられたカトリック教会です。ギマラス島のサンゴ石で造られ、入口上部にはキリスト像が立ちます。白を基調とした落ち着いた空間で、地元の人と静かに祈りをささげられます。
+                    </p>
+                </div>
+
+                <div class="tourist-spot">
+                    <div class="tourist-image">
+                        <img src="images/popup/Manbukal.jpg" alt="マンブカル">
+                    </div>
+                    <h3 class="tourist-title">マンブカル</h3>
+                    <p class="tourist-description">
+                        マンブカルは温泉リゾートで有名な街で、バコロドから車で約1時間。日帰りツアーも便利です。露天風呂や温水プールのほか、バスケットコートやジップラインなどのアクティビティも充実。水着を忘れずに持参し、遊んだ後は温泉でゆったり過ごしましょう。宿泊すればさらにのんびり楽しめます。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">E-ROOM</div>
+            <p>&copy; 2024 E-ROOM. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
