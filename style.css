@@ -800,6 +800,10 @@ footer {
     .review-card {
         padding: 1.5rem;
     }
+
+    .bottom-cta-buttons {
+        max-width: 600px;
+    }
 }
 
 /* レスポンシブ - スマートフォン */
@@ -1237,6 +1241,23 @@ footer {
     .footer-logo {
         font-size: 1.2rem;
     }
+
+    .bottom-cta {
+        padding: 3rem 1rem;
+    }
+
+    .bottom-cta-card {
+        width: 90%;
+        padding: 0.7rem 1.2rem;
+    }
+
+    .bottom-cta-heading {
+        font-size: 1.3rem;
+    }
+
+    .bottom-cta-title {
+        font-size: 0.85rem;
+    }
 }
 
 /* アニメーション */
@@ -1472,6 +1493,21 @@ footer {
     .jeepney-images img {
         height: 180px;
     }
+
+    .bottom-cta-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .bottom-cta-card {
+        width: 80%;
+        max-width: 350px;
+    }
+
+    .bottom-cta-heading {
+        font-size: 1.5rem;
+    }
 }
 
 .gallery-slider {
@@ -1506,4 +1542,85 @@ footer {
 .gallery-slider .swiper-wrapper,
 .gallery-slider-reverse .swiper-wrapper {
     transition-timing-function: linear !important;
+}
+
+/* Bottom CTA */
+.bottom-cta {
+    padding: 5rem 2rem;
+    text-align: center;
+}
+
+.bottom-cta-accent {
+    width: 50px;
+    height: 4px;
+    background-color: #2c5aa0;
+    margin: 0 auto 1.5rem auto;
+}
+
+.bottom-cta-heading {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.bottom-cta-subheading {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.05em;
+}
+
+.bottom-cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.bottom-cta-card {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1.5rem;
+    border: 1.5px solid navy;
+    border-radius: 8px;
+    text-decoration: none;
+    color: navy;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.bottom-cta-card:hover {
+    background-color: navy;
+    color: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 128, 0.2);
+    transform: translateY(-2px);
+}
+
+.bottom-cta-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.6;
+    position: absolute;
+    top: 0.7rem;
+    left: 2rem;
+}
+
+.bottom-cta-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0.8rem;
+}
+
+.bottom-cta-arrow {
+    margin-left: auto;
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+
+.bottom-cta-card:hover .bottom-cta-arrow {
+    transform: translateX(5px);
 }
