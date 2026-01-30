@@ -631,3 +631,31 @@ touristModal.addEventListener("click", (e) => {
     document.body.style.overflow = "";
   }
 });
+
+
+const swiper = new Swiper(".gallery-slider", {
+  autoplay: {
+    delay: 0,
+    disableOnInteraction: false,
+  },
+  loop: true,
+  speed: 10000,
+  slidesPerView: "auto",
+  spaceBetween: 16,
+  freeMode: true,
+  freeModeMomentum: false,
+});
+
+const swiper2 = new Swiper(".gallery-slider-reverse", {
+  autoplay: {
+    delay: 0,
+    disableOnInteraction: false,
+    reverseDirection: true,
+  },
+  loop: true,
+  speed: 8000,
+  slidesPerView: "auto",
+  spaceBetween: 16,
+  freeMode: true,
+  freeModeMomentum: false,
+});

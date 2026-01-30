@@ -1473,3 +1473,37 @@ footer {
         height: 180px;
     }
 }
+
+.gallery-slider {
+    width: 100%;
+    height: clamp(120px, 30vw, 15vw);
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.gallery-slider-reverse {
+    width: 100%;
+    height: clamp(120px, 30vw, 15vw);
+    overflow: hidden;
+}
+
+.gallery-slider .swiper-slide,
+.gallery-slider-reverse .swiper-slide {
+    width: 30vw;
+    height: 100%;
+}
+
+.gallery-slider .swiper-slide img,
+.gallery-slider-reverse .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 8px;
+}
+
+.gallery-slider .swiper-wrapper,
+.gallery-slider-reverse .swiper-wrapper {
+    transition-timing-function: linear !important;
+}
