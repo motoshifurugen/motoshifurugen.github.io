@@ -632,6 +632,17 @@ touristModal.addEventListener("click", (e) => {
   }
 });
 
+// Reviews toggle (Bootstrap collapse)
+const reviewsToggle = document.getElementById("reviewsToggle");
+const reviewsHidden = document.getElementById("reviewsHidden");
+
+reviewsHidden.addEventListener("shown.bs.collapse", () => {
+  reviewsToggle.innerHTML = 'CLOSE <span class="reviews-toggle-icon">&#9662;</span>';
+});
+
+reviewsHidden.addEventListener("hidden.bs.collapse", () => {
+  reviewsToggle.innerHTML = 'VIEW MORE <span class="reviews-toggle-icon">&#9662;</span>';
+});
 
 const swiper = new Swiper(".gallery-slider", {
   autoplay: {
