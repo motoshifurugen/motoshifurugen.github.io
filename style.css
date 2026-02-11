@@ -1,3 +1,6 @@
+/* ===========================
+   リセット・ベース
+   =========================== */
 * {
     margin: 0;
     padding: 0;
@@ -17,11 +20,9 @@ body {
     padding: 0;
 }
 
-section {
-    margin: 0;
-}
-
-/* ヘッダー */
+/* ===========================
+   ヘッダー
+   =========================== */
 header {
     background-color: #1a1a1a;
     padding: 1rem 0;
@@ -97,7 +98,9 @@ nav {
     transition: 0.3s;
 }
 
-/* メインビジュアル */
+/* ===========================
+   メインビジュアル
+   =========================== */
 .hero {
     position: relative;
     height: 70vh;
@@ -138,24 +141,9 @@ nav {
     opacity: 1;
 }
 
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
-    z-index: 2;
-}
-
-.hero-content {
-    text-align: center;
-    color: white;
-    position: relative;
-    z-index: 3;
-}
-
-/* セクション共通 */
+/* ===========================
+   セクション共通
+   =========================== */
 section {
     padding: 5rem 2rem;
     max-width: 1200px;
@@ -165,13 +153,6 @@ section {
 .section-header {
     text-align: center;
     margin-bottom: 1rem;
-}
-
-.section-number {
-    color: #2c5aa0;
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
 }
 
 .section-title {
@@ -186,10 +167,13 @@ section {
     margin-bottom: 2rem;
 }
 
-/* Campus Tour */
+/* ===========================
+   Campus Tour
+   =========================== */
 .campus-tour {
     background-color: #f8f8f8;
     padding: 5rem 0;
+    max-width: none;
 }
 
 .tour-container {
@@ -203,7 +187,7 @@ section {
 }
 
 .tour-text {
-    flex: 0 0 450px;
+    flex: 1;
 }
 
 .tour-accent {
@@ -235,7 +219,7 @@ section {
 }
 
 .tour-video {
-    flex: 0 0 500px;
+    flex: 1;
     position: relative;
     padding-bottom: 280px;
     height: 0;
@@ -253,7 +237,9 @@ section {
     border-radius: 8px;
 }
 
-/* Student Voices */
+/* ===========================
+   Student Voices
+   =========================== */
 .student-voices {
     background-color: white;
     padding: 5rem 0;
@@ -359,13 +345,6 @@ section {
     line-height: 1.5;
 }
 
-.voice-card .comment {
-    font-size: 0.85rem;
-    line-height: 1.6;
-    color: #333;
-    padding: 1rem 0;
-}
-
 .voice-card .advice {
     font-size: 0.85rem;
     line-height: 1.6;
@@ -405,26 +384,32 @@ section {
 .btn {
     display: inline-block;
     padding: 0.8rem 3rem;
-    background-color: #2c5aa0;
-    color: white;
+    background: none;
+    border: 1.5px solid #2c5aa0;
+    color: #2c5aa0;
     text-decoration: none;
-    border-radius: 25px;
-    transition: background-color 0.3s;
+    border-radius: 50px;
+    transition: all 0.3s;
     font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
 }
 
 .btn:hover {
-    background-color: #1e4070;
+    background-color: #2c5aa0;
+    color: white;
 }
 
-/* Real Reviews */
+/* ===========================
+   Real Reviews
+   =========================== */
 .real-reviews {
     background-color: #fff;
     padding: 5rem 0;
 }
 
 .reviews-container {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 0 2rem;
 }
@@ -475,6 +460,16 @@ section {
     grid-template-rows: auto 1fr;
     gap: 0 1.5rem;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    width: calc(100% - 5rem);
+}
+
+.reviews-list > .review-card:nth-child(2) {
+    margin-left: auto;
+}
+
+#reviewsHidden > .review-card:nth-child(2) {
+    margin-top: 2rem;
+    margin-left: auto;
 }
 
 .review-avatar {
@@ -530,27 +525,6 @@ section {
     color: #555;
 }
 
-.review-separator {
-    display: flex;
-    justify-content: center;
-    padding: 2rem 0;
-}
-
-.separator-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid #f0f0f0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.separator-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 .reviews-toggle {
     display: block;
     margin: 2rem auto 0;
@@ -582,7 +556,44 @@ section {
     transform: rotate(180deg);
 }
 
-/* Local Guide */
+/* ===========================
+   Gallery Slider
+   =========================== */
+.gallery-slider,
+.gallery-slider-reverse {
+    width: 100%;
+    height: clamp(120px, 30vw, 15vw);
+    overflow: hidden;
+}
+
+.gallery-slider {
+    margin-bottom: 16px;
+}
+
+.gallery-slider .swiper-slide,
+.gallery-slider-reverse .swiper-slide {
+    width: 30vw;
+    height: 100%;
+}
+
+.gallery-slider .swiper-slide img,
+.gallery-slider-reverse .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 8px;
+}
+
+.gallery-slider .swiper-wrapper,
+.gallery-slider-reverse .swiper-wrapper {
+    transition-timing-function: linear !important;
+}
+
+/* ===========================
+   Local Guide
+   =========================== */
 .local-guide {
     background-color: white;
     padding: 5rem 4rem;
@@ -684,27 +695,9 @@ section {
     object-fit: cover;
 }
 
-/* Footer */
-footer {
-    background-color: #1a3d6b;
-    color: white;
-    padding: 2rem;
-    text-align: center;
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    letter-spacing: 2px;
-    margin-bottom: 1rem;
-}
-
-/* Price Calculator */
+/* ===========================
+   Price Calculator
+   =========================== */
 .price-calculator {
     background-color: white;
 }
@@ -806,548 +799,9 @@ footer {
     margin-left: 0.5rem;
 }
 
-/* レスポンシブ - タブレット */
-@media (max-width: 1024px) {
-    .tour-container {
-        gap: 2rem;
-        padding: 0 2rem;
-    }
-
-    .tour-text {
-        flex: 1 1 300px;
-    }
-
-    .tour-title {
-        font-size: 2.5rem;
-    }
-
-    .voices-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-    }
-
-    .voice-card .voice-image {
-        height: 220px;
-    }
-
-    .guide-container {
-        gap: 2rem;
-    }
-
-    .guide-image {
-        height: 400px;
-    }
-
-    .review-card {
-        padding: 1.5rem;
-    }
-
-    .bottom-cta-buttons {
-        max-width: 600px;
-    }
-}
-
-/* レスポンシブ - スマートフォン */
-@media (max-width: 768px) {
-
-    /* ヘッダー */
-    header {
-        padding: 0.7rem 0;
-    }
-
-    /* ナビゲーション */
-    .nav-links {
-        position: fixed;
-        right: -100%;
-        top: 45px;
-        flex-direction: column;
-        background-color: #1a1a1a;
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        padding: 0;
-        gap: 0;
-    }
-
-    .nav-links li {
-        padding: 0.6rem 0;
-        border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .nav-links li:last-child {
-        border-bottom: none;
-    }
-
-    .nav-links.active {
-        right: 0;
-    }
-
-    .hamburger {
-        display: flex;
-    }
-
-    /* ヒーロー */
-    .hero {
-        height: 50vh;
-        min-height: 400px;
-        margin: 0;
-    }
-
-    .hero-slide {
-        background-size: cover;
-    }
-
-    section {
-        padding: 3rem 1.5rem;
-        margin: 0;
-    }
-
-    /* 各セクションのパディングを明示的に上書き */
-    .campus-tour,
-    .student-voices,
-    .real-reviews,
-    .local-guide {
-        padding: 3rem 1.5rem;
-    }
-
-    .section-title {
-        font-size: 1.5rem;
-    }
-
-    /* キャンパスツアー */
-    .tour-container {
-        flex-direction: column;
-        gap: 2rem;
-        padding: 0;
-    }
-
-    .tour-text {
-        flex: none;
-        width: 100%;
-        text-align: left;
-    }
-
-    .tour-accent {
-        margin-left: 0;
-        margin-right: auto;
-    }
-
-    .tour-title {
-        font-size: 2rem;
-    }
-
-    .tour-video {
-        flex: none;
-        width: 100%;
-        padding-bottom: 56.25%;
-    }
-
-    /* Student Voices */
-    .voices-container {
-        padding: 0;
-    }
-
-    .voices-header {
-        text-align: left;
-    }
-
-    .voices-accent {
-        margin-left: 0;
-        margin-right: auto;
-    }
-
-    .voices-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .voices-title {
-        font-size: 2rem;
-    }
-
-    .voice-card:nth-child(even) {
-        margin-top: 0;
-    }
-
-    .voice-card .voice-image-container {
-        width: 100%;
-        height: 200px;
-    }
-
-    .voice-card .voice-image {
-        width: 100%;
-        height: 100%;
-    }
-
-    .voice-card .voice-image-container a {
-        height: 100%;
-    }
-
-    .voice-card .voice-info {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-    }
-
-    .voice-info .name {
-        font-size: 0.9rem;
-    }
-
-    .voice-info .details {
-        font-size: 0.75rem;
-    }
-
-    .voice-card .advice {
-        font-size: 0.8rem;
-        padding: 0.5rem;
-        padding-left: 1rem;
-        max-height: none;
-        display: -webkit-box !important;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    /* Real Reviews */
-    .reviews-container {
-        padding: 0;
-    }
-
-    .reviews-header {
-        margin-bottom: 2rem;
-        text-align: left;
-    }
-
-    .reviews-accent {
-        margin-left: 0;
-        margin-right: auto;
-    }
-
-    .reviews-title {
-        font-size: 2rem;
-    }
-
-    .review-card {
-        display: grid;
-        grid-template-columns: 60px 1fr;
-        gap: 0 0.8rem;
-        padding: 1.5rem;
-    }
-
-    .review-avatar {
-        grid-column: 1;
-        grid-row: 1;
-        width: 60px;
-        height: 60px;
-    }
-
-    .review-body {
-        display: contents;
-    }
-
-    .review-header-info {
-        grid-column: 2;
-        grid-row: 1;
-        align-self: end;
-        margin-bottom: 0;
-    }
-
-    .review-name {
-        font-size: 1rem;
-        margin-bottom: 0.1rem;
-    }
-
-    .review-meta {
-        font-size: 0.85rem;
-        text-align: left;
-    }
-
-    .review-text {
-        grid-column: 1 / -1;
-        grid-row: 2;
-        font-size: 0.85rem;
-        border-left: 3px solid #2c5aa0;
-        padding-left: 1.5rem;
-        margin-top: 0.8rem;
-    }
-
-    .separator-avatar {
-        width: 60px;
-        height: 60px;
-    }
-
-    /* Local Guide */
-    .guide-container {
-        flex-direction: column;
-        padding: 0;
-    }
-
-    .guide-text {
-        flex: none;
-        width: 100%;
-        order: 2;
-        text-align: left;
-    }
-
-    .guide-accent {
-        margin-left: 0;
-        margin-right: auto;
-    }
-
-    .guide-image {
-        flex: none;
-        width: 100%;
-        height: 300px;
-        border-radius: 20px 0 0 0;
-        order: 1;
-    }
-
-    .guide-title {
-        font-size: 1.8rem;
-    }
-
-    .guide-links {
-        max-width: 100%;
-    }
-
-    .guide-link {
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
-    }
-
-    /* Price Calculator */
-    .price-calculator .section-header {
-        text-align: center;
-    }
-
-    .calculator-container {
-        padding: 1.5rem;
-    }
-
-    .price-title {
-        font-size: 2rem;
-    }
-
-    .price-accent {
-        margin: 0 auto 1.5rem auto;
-    }
-
-    .form-group label {
-        font-size: 0.9rem;
-    }
-
-    .result-total {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 480px) {
-
-    /* 全体 */
-    section {
-        padding: 2rem 1rem;
-    }
-
-    .section-title {
-        font-size: 1.3rem;
-    }
-
-    .btn {
-        padding: 0.7rem 2rem;
-        font-size: 0.85rem;
-    }
-
-    /* ナビゲーション */
-    nav {
-        padding: 0 1rem;
-    }
-
-    .logo {
-        font-size: 1rem;
-    }
-
-    /* ヒーロー */
-    .hero {
-        height: 40vh;
-        min-height: 300px;
-    }
-
-    /* キャンパスツアー */
-    .tour-container {
-        padding: 0;
-    }
-
-    .tour-title {
-        font-size: 1.5rem;
-    }
-
-    .tour-subtitle {
-        font-size: 0.85rem;
-    }
-
-    /* Student Voices */
-    .voices-title {
-        font-size: 1.5rem;
-    }
-
-    .voice-card .voice-image-container {
-        height: 180px;
-    }
-
-    .voice-card .voice-image {
-        width: 100%;
-        height: 100%;
-    }
-
-    .voice-card .advice {
-        font-size: 0.75rem;
-        padding: 0.5rem;
-        padding-left: 1rem;
-        max-height: 5.8em;
-        display: -webkit-box !important;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    .read-more {
-        font-size: 0.8rem;
-        padding: 0.6rem 1rem;
-    }
-
-    /* Real Reviews */
-    .reviews-title {
-        font-size: 1.5rem;
-    }
-
-    .reviews-subtitle {
-        font-size: 0.9rem;
-    }
-
-    .reviews-description {
-        font-size: 0.85rem;
-    }
-
-    .review-card {
-        grid-template-columns: 50px 1fr;
-        padding: 1rem;
-    }
-
-    .review-avatar {
-        width: 50px;
-        height: 50px;
-    }
-
-    .review-name {
-        font-size: 0.85rem;
-    }
-
-    .review-meta {
-        font-size: 0.75rem;
-    }
-
-    .review-text {
-        font-size: 0.8rem;
-        line-height: 1.7;
-    }
-
-    .separator-avatar {
-        width: 50px;
-        height: 50px;
-    }
-
-    /* Local Guide */
-    .guide-container {
-        padding: 0;
-    }
-
-    .guide-title {
-        font-size: 1.5rem;
-    }
-
-    .guide-image {
-        height: 250px;
-    }
-
-    .guide-link {
-        padding: 0.7rem 0.8rem;
-        font-size: 0.85rem;
-    }
-
-    /* Price Calculator */
-    .price-title {
-        font-size: 1.5rem;
-    }
-
-    .calculator-container {
-        padding: 1rem;
-    }
-
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-
-    .form-group select {
-        font-size: 0.75rem;
-        padding: 0.7rem;
-    }
-
-    .form-group label {
-        font-size: 0.85rem;
-    }
-
-    .result-total {
-        font-size: 1.8rem;
-    }
-
-    /* フッター */
-    footer {
-        padding: 2rem 1rem;
-    }
-
-    .footer-logo {
-        font-size: 1.2rem;
-    }
-
-    .bottom-cta {
-        padding: 3rem 1rem;
-    }
-
-    .bottom-cta-card {
-        width: 90%;
-        padding: 0.7rem 1.2rem;
-    }
-
-    .bottom-cta-heading {
-        font-size: 1.3rem;
-    }
-
-    .bottom-cta-title {
-        font-size: 0.85rem;
-    }
-}
-
-/* アニメーション */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.fade-in {
-    animation: fadeIn 0.6s ease-out;
-}
-
-/* Modal */
+/* ===========================
+   Modal
+   =========================== */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -1547,74 +1001,9 @@ footer {
     line-height: 2;
 }
 
-@media (max-width: 768px) {
-    .modal-overlay {
-        padding: 1rem;
-    }
-
-    .modal-content {
-        padding: 1.5rem;
-    }
-
-    .jeepney-images {
-        grid-template-columns: 1fr;
-    }
-
-    .jeepney-images img {
-        height: 180px;
-    }
-
-    .bottom-cta-buttons {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .bottom-cta-card {
-        width: 80%;
-        max-width: 350px;
-    }
-
-    .bottom-cta-heading {
-        font-size: 1.5rem;
-    }
-}
-
-.gallery-slider {
-    width: 100%;
-    height: clamp(120px, 30vw, 15vw);
-    overflow: hidden;
-    margin-bottom: 16px;
-}
-
-.gallery-slider-reverse {
-    width: 100%;
-    height: clamp(120px, 30vw, 15vw);
-    overflow: hidden;
-}
-
-.gallery-slider .swiper-slide,
-.gallery-slider-reverse .swiper-slide {
-    width: 30vw;
-    height: 100%;
-}
-
-.gallery-slider .swiper-slide img,
-.gallery-slider-reverse .swiper-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    border-radius: 8px;
-}
-
-.gallery-slider .swiper-wrapper,
-.gallery-slider-reverse .swiper-wrapper {
-    transition-timing-function: linear !important;
-}
-
-/* Bottom CTA */
+/* ===========================
+   Bottom CTA
+   =========================== */
 .bottom-cta {
     padding: 5rem 2rem;
     text-align: center;
@@ -1654,18 +1043,18 @@ footer {
     display: flex;
     align-items: center;
     padding: 0.8rem 1.5rem;
-    border: 1.5px solid navy;
-    border-radius: 8px;
+    border: 1.5px solid #2c5aa0;
+    border-radius: 50px;
     text-decoration: none;
-    color: navy;
+    color: #2c5aa0;
     transition: all 0.3s;
     position: relative;
 }
 
 .bottom-cta-card:hover {
-    background-color: navy;
+    background-color: #2c5aa0;
     color: white;
-    box-shadow: 0 4px 20px rgba(0, 0, 128, 0.2);
+    box-shadow: 0 4px 20px rgba(44, 90, 160, 0.2);
     transform: translateY(-2px);
 }
 
@@ -1693,4 +1082,635 @@ footer {
 
 .bottom-cta-card:hover .bottom-cta-arrow {
     transform: translateX(5px);
+}
+
+/* ===========================
+   フッター
+   =========================== */
+footer {
+    background-color: #1a3d6b;
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+/* ===========================
+   アニメーション
+   =========================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* ===========================
+   レスポンシブ - タブレット (1024px)
+   =========================== */
+@media (max-width: 1024px) {
+
+    /* Campus Tour */
+    .tour-container {
+        gap: 2rem;
+        padding: 0 2rem;
+    }
+
+    .tour-text {
+        flex: 1;
+    }
+
+    .tour-title {
+        font-size: 2.5rem;
+    }
+
+    /* Student Voices */
+    .voices-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .voice-card .voice-image-container {
+        height: 220px;
+    }
+
+    .voice-card .voice-image {
+        height: 100%;
+    }
+
+    /* Real Reviews */
+    .review-card {
+        padding: 1.5rem;
+        width: calc(100% - 3rem);
+    }
+
+    .reviews-list > .review-card:nth-child(2) {
+        margin-left: auto;
+    }
+
+    #reviewsHidden > .review-card:nth-child(2) {
+        margin-left: auto;
+    }
+
+    /* Local Guide */
+    .local-guide {
+        padding: 5rem 0;
+    }
+
+    .guide-container {
+        gap: 1rem;
+        width: auto;
+        margin: 0 1.5rem;
+    }
+
+    .guide-text {
+        flex: 1 1 0;
+    }
+
+    .guide-image {
+        flex: 1 1 0;
+        height: auto;
+        align-self: stretch;
+    }
+
+    /* Bottom CTA */
+    .bottom-cta-buttons {
+        max-width: 600px;
+    }
+}
+
+/* ===========================
+   レスポンシブ - スマートフォン (768px)
+   =========================== */
+@media (max-width: 768px) {
+
+    /* ヘッダー */
+    header {
+        padding: 0.7rem 0;
+    }
+
+    .nav-links {
+        position: fixed;
+        right: -100%;
+        top: 45px;
+        flex-direction: column;
+        background-color: #1a1a1a;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        padding: 0;
+        gap: 0;
+    }
+
+    .nav-links li {
+        padding: 0.6rem 0;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links li:last-child {
+        border-bottom: none;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    /* ヒーロー */
+    .hero {
+        height: 50vh;
+        min-height: 400px;
+        margin: 0;
+    }
+
+    .hero-slide {
+        background-size: cover;
+    }
+
+    /* セクション共通 */
+    section {
+        padding: 3rem 1.5rem;
+        margin: 0;
+    }
+
+    .campus-tour,
+    .student-voices,
+    .real-reviews,
+    .local-guide {
+        padding: 3rem 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    /* Campus Tour */
+    .tour-container {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 0;
+    }
+
+    .tour-text {
+        flex: none;
+        width: 100%;
+        text-align: left;
+    }
+
+    .tour-accent {
+        margin-left: 0;
+        margin-right: auto;
+    }
+
+    .tour-title {
+        font-size: 2rem;
+    }
+
+    .tour-video {
+        flex: none;
+        width: 100%;
+        padding-bottom: 56.25%;
+    }
+
+    /* Student Voices */
+    .voices-container {
+        padding: 0;
+    }
+
+    .voices-header {
+        text-align: left;
+    }
+
+    .voices-accent {
+        margin-left: 0;
+        margin-right: auto;
+    }
+
+    .voices-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .voices-title {
+        font-size: 2rem;
+    }
+
+    .voice-card:nth-child(even) {
+        margin-top: 0;
+    }
+
+    .voice-card .voice-image-container {
+        width: 100%;
+        height: 200px;
+    }
+
+    .voice-card .voice-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .voice-card .voice-image-container a {
+        height: 100%;
+    }
+
+    .voice-card .voice-info {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    .voice-info .name {
+        font-size: 0.9rem;
+    }
+
+    .voice-info .details {
+        font-size: 0.75rem;
+    }
+
+    .voice-card .advice {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+        padding-left: 1rem;
+        max-height: none;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Real Reviews */
+    .reviews-container {
+        padding: 0;
+    }
+
+    .reviews-header {
+        margin-bottom: 2rem;
+        text-align: left;
+    }
+
+    .reviews-accent {
+        margin-left: 0;
+        margin-right: auto;
+    }
+
+    .reviews-title {
+        font-size: 2rem;
+    }
+
+    .review-card {
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        gap: 0 0.8rem;
+        padding: 1.5rem;
+        width: calc(100% - 2rem);
+    }
+
+    .reviews-list > .review-card:nth-child(2) {
+        margin-left: auto;
+    }
+
+    #reviewsHidden > .review-card:nth-child(2) {
+        margin-left: auto;
+    }
+
+    .review-avatar {
+        grid-column: 1;
+        grid-row: 1;
+        width: 60px;
+        height: 60px;
+    }
+
+    .review-body {
+        display: contents;
+    }
+
+    .review-header-info {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: end;
+        margin-bottom: 0;
+    }
+
+    .review-name {
+        font-size: 1rem;
+        margin-bottom: 0.1rem;
+    }
+
+    .review-meta {
+        font-size: 0.85rem;
+        text-align: left;
+    }
+
+    .review-text {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        font-size: 0.85rem;
+        border-left: 3px solid #2c5aa0;
+        padding-left: 1.5rem;
+        margin-top: 0.8rem;
+    }
+
+    /* Local Guide */
+    .guide-container {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .guide-text {
+        flex: none;
+        width: 100%;
+        order: 2;
+        text-align: left;
+    }
+
+    .guide-accent {
+        margin-left: 0;
+        margin-right: auto;
+    }
+
+    .guide-image {
+        flex: none;
+        width: 100%;
+        height: 300px;
+        border-radius: 40px 0 0 0;
+        order: 1;
+    }
+
+    .guide-title {
+        font-size: 1.8rem;
+    }
+
+    .guide-links {
+        max-width: 70%;
+        margin: 0 auto;
+    }
+
+    .guide-link {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+        border-width: 1.5px;
+        border-radius: 50px;
+    }
+
+    /* Price Calculator */
+    .price-calculator .section-header {
+        text-align: center;
+    }
+
+    .calculator-container {
+        padding: 1.5rem;
+    }
+
+    .price-accent {
+        margin: 0 auto 1.5rem auto;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    /* Modal */
+    .modal-overlay {
+        padding: 1rem;
+    }
+
+    .modal-content {
+        padding: 1.5rem;
+    }
+
+    .jeepney-images {
+        grid-template-columns: 1fr;
+    }
+
+    .jeepney-images img {
+        height: 180px;
+    }
+
+    /* Bottom CTA */
+    .bottom-cta-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .bottom-cta-card {
+        width: 80%;
+        max-width: 350px;
+    }
+
+    .bottom-cta-heading {
+        font-size: 1.5rem;
+    }
+}
+
+/* ===========================
+   レスポンシブ - 小型スマートフォン (480px)
+   =========================== */
+@media (max-width: 480px) {
+
+    /* ヘッダー */
+    nav {
+        padding: 0 1rem;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    /* ヒーロー */
+    .hero {
+        height: 40vh;
+        min-height: 300px;
+    }
+
+    /* セクション共通 */
+    section {
+        padding: 2rem 1rem;
+    }
+
+    .section-title {
+        font-size: 1.3rem;
+    }
+
+    .btn {
+        padding: 0.7rem 2rem;
+        font-size: 0.85rem;
+    }
+
+    /* Campus Tour */
+    .tour-container {
+        padding: 0;
+    }
+
+    .tour-title {
+        font-size: 1.5rem;
+    }
+
+    .tour-subtitle {
+        font-size: 0.85rem;
+    }
+
+    /* Student Voices */
+    .voices-title {
+        font-size: 1.5rem;
+    }
+
+    .voice-card .voice-image-container {
+        height: 180px;
+    }
+
+    .voice-card .voice-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .voice-card .advice {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+        padding-left: 1rem;
+        max-height: 5.8em;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .read-more {
+        font-size: 0.8rem;
+        padding: 0.6rem 1rem;
+    }
+
+    /* Real Reviews */
+    .reviews-title {
+        font-size: 1.5rem;
+    }
+
+    .reviews-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .reviews-description {
+        font-size: 0.85rem;
+    }
+
+    .review-card {
+        grid-template-columns: 50px 1fr;
+        padding: 1rem;
+        width: calc(100% - 1rem);
+    }
+
+    .reviews-list > .review-card:nth-child(2) {
+        margin-left: auto;
+    }
+
+    #reviewsHidden > .review-card:nth-child(2) {
+        margin-left: auto;
+    }
+
+    .review-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .review-name {
+        font-size: 0.85rem;
+    }
+
+    .review-meta {
+        font-size: 0.75rem;
+    }
+
+    .review-text {
+        font-size: 0.8rem;
+        line-height: 1.7;
+    }
+
+    /* Local Guide */
+    .guide-container {
+        padding: 0;
+    }
+
+    .guide-title {
+        font-size: 1.5rem;
+    }
+
+    .guide-image {
+        height: 250px;
+    }
+
+    .guide-link {
+        padding: 0.7rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    /* Price Calculator */
+    .calculator-container {
+        padding: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group select {
+        font-size: 0.75rem;
+        padding: 0.7rem;
+    }
+
+    .form-group label {
+        font-size: 0.85rem;
+    }
+
+    /* Bottom CTA */
+    .bottom-cta {
+        padding: 3rem 1rem;
+    }
+
+    .bottom-cta-card {
+        width: 90%;
+        padding: 0.7rem 1.2rem;
+    }
+
+    .bottom-cta-heading {
+        font-size: 1.3rem;
+    }
+
+    .bottom-cta-title {
+        font-size: 0.85rem;
+    }
+
+    /* フッター */
+    footer {
+        padding: 2rem 1rem;
+    }
+
+    .footer-logo {
+        font-size: 1.2rem;
+    }
 }

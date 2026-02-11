@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
   {
     "name": "Yukaさん",
@@ -36,3 +37,55 @@
     "advice": "フィリピンのご飯はオイリーなことが多いので、胃腸薬を持ってくることをおすすめします。基本的に薬は色々な種類を持ってくるべきだと思います。それとノートの質は日本の方がいいので、もってきた方がいいです。(..."
   }
 ]
+=======
+{
+  "persons": [
+    {
+      "name": "Yukaさん",
+      "gender": "女性",
+      "age": "20代",
+      "period": "12週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/01/line_oa_chat_260127_103022.jpeg",
+      "url": "https://e-roomjp.com/experiences/yuka%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a12%e9%80%b1%e9%96%93/",
+      "advice": "先生によって授業のスタイルや教え方が大きく違うので、自分には合わないと感じたら遠慮せずに変更するのがおすすめです。 また、最初の数日は生活環境に慣れるまで大変かもしれませんが、時間が経てば自然と慣れて..."
+    },
+    {
+      "name": "Kateさん",
+      "gender": "女性",
+      "age": "20代",
+      "period": "8週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/01/line_oa_chat_260128_112849.jpeg",
+      "url": "https://e-roomjp.com/experiences/kate%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a8%e9%80%b1%e9%96%93/",
+      "advice": "留学中は不安や戸惑いを感じることもあると思いますが、完璧を目指さず、まずは一歩踏み出すことが大切です。間違いを恐れず英語を使い、たくさんの人と関わることで、自分の世界が広がります。文化や価値観の違いを..."
+    },
+    {
+      "name": "Yuiさん",
+      "gender": "女性",
+      "age": "20代",
+      "period": "16週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/01/line_oa_chat_260128_112828.jpeg",
+      "url": "https://e-roomjp.com/experiences/yui%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a16%e9%80%b1%e9%96%93/",
+      "advice": "これから留学する人へのアドバイスとして、イールームでは受け身にならず、自分から学び方を伝えることがとても大切です。先生は週ごとに選べるので、合わないと感じたら無理せず変更し、自分に合うスタイルを見つけ..."
+    },
+    {
+      "name": "Noaさん",
+      "gender": "女性",
+      "age": "20代",
+      "period": "3週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/01/line_oa_chat_260122_134058.jpeg",
+      "url": "https://e-roomjp.com/experiences/noa%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a3%e9%80%b1%e9%96%93/",
+      "advice": "フィリピンのご飯はオイリーなことが多いので、胃腸薬を持ってくることをおすすめします。基本的に薬は色々な種類を持ってくるべきだと思います。それとノートの質は日本の方がいいので、もってきた方がいいです。(..."
+    }
+  ],
+  "slideImg": [
+    "https://e-roomjp.com/wp-content/uploads/2026/01/line_oa_chat_260127_103018.jpeg",
+    "https://e-roomjp.com/wp-content/uploads/2026/01/line_oa_chat_260127_103027.jpeg",
+    "https://e-roomjp.com/wp-content/uploads/2026/01/line_oa_chat_260128_112850.jpeg",
+    "https://e-roomjp.com/wp-content/uploads/2026/01/line_oa_chat_260128_112903.jpeg",
+    "https://e-roomjp.com/wp-content/uploads/2026/01/line_oa_chat_260128_112823.jpeg",
+    "https://e-roomjp.com/wp-content/uploads/2026/01/line_oa_chat_260128_112831.jpeg",
+    "https://e-roomjp.com/wp-content/uploads/2026/01/line_oa_chat_260122_134055.jpeg",
+    "https://e-roomjp.com/wp-content/uploads/2026/01/line_oa_chat_260122_134046.jpeg"
+  ]
+}
+>>>>>>> b5ed207 (slideShowをvoiceより取得へ変更)

@@ -464,27 +464,6 @@ periodSelect.addEventListener("change", calculatePrice);
 
 // ヒーロースライドショー
 const heroSlideshow = document.getElementById("heroSlideshow");
-
-// 固定ファイル名の画像を取得
-async function getImageFiles() {
-  const imageFiles = [];
-
-  // slide_1.jpg から slide_5.jpg まで順番にチェック
-  for (let i = 1; i <= 5; i++) {
-    const imagePath = `images/facebook/slide_${i}.jpg`;
-    try {
-      const response = await fetch(imagePath, { method: "HEAD" });
-      if (response.ok) {
-        imageFiles.push(imagePath);
-      }
-    } catch (error) {
-      console.log(`画像が見つかりません: slide_${i}.jpg`);
-    }
-  }
-
-  return imageFiles;
-}
-
 let currentSlide = 0;
 
 // スライド要素を生成
@@ -514,23 +493,16 @@ function nextSlide() {
 // スライドショーを開始
 async function startSlideshow() {
   try {
-    const imageFiles = await getImageFiles();
-    console.log(`見つかった画像: ${imageFiles.length}枚`);
+    const log = await fetch("contents/person.json");
+    const data = await log.json();
+    const slideImg = data.slideImg;
 
-    if (imageFiles.length > 0) {
-      createSlides(imageFiles);
+    if (slideImg.length > 0) {
+      createSlides(slideImg);
       setInterval(nextSlide, 3000); // 3秒間隔で切り替え
-    } else {
-      console.log("画像が見つかりませんでした");
-      // フォールバック: デフォルト画像またはメッセージを表示
-      heroSlideshow.innerHTML =
-        '<div class="hero-slide active" style="background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;"><p style="color: #666; font-size: 1.2rem;">画像を読み込み中...</p></div>';
     }
   } catch (error) {
     console.error("スライドショーの初期化に失敗:", error);
-    // エラー時のフォールバック
-    heroSlideshow.innerHTML =
-      '<div class="hero-slide active" style="background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;"><p style="color: #666; font-size: 1.2rem;">画像の読み込みに失敗しました</p></div>';
   }
 }
 
@@ -541,7 +513,8 @@ const postDiv = document.querySelector(".voices-grid");
 const personData = async function () {
   try {
     const log = await fetch("contents/person.json");
-    const responses = await log.json();
+    const data = await log.json();
+    const persons = data.persons;
 
     if (!postDiv) {
       console.error('voices-gridが見つかりません');
@@ -549,15 +522,14 @@ const personData = async function () {
     }
 
     let html = '';
-    for (const response of responses) {
-      console.log(response);
+    for (const response of persons) {
       html += `
         <div class="voice-card">
           <div class="voice-image-container">
           <a href="${response.url}">
             ${
-              response.img
-                ? `<img src="${response.img}" alt="${response.name}" class="voice-image">`
+              response.mainImg_src
+                ? `<img src="${response.mainImg_src}" alt="${response.name}" class="voice-image">`
                 : '<div class="voice-image" style="background-color: #ddd;"></div>'
             }
             
@@ -579,7 +551,7 @@ const personData = async function () {
       `;
     }
     postDiv.innerHTML = html;
-    console.log(`✅ ${responses.length}件の体験談を読み込みました`);
+    console.log(`✅ ${persons.length}件の体験談を読み込みました`);
   } catch (error) {
     console.error('❌ データ読み込みエラー:', error);
   }
