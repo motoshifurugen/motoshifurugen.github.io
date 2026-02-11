@@ -28,7 +28,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install --upgrade pip
-        pip install beautifulsoup4 requests
+        pip install beautifulsoup4 requests Pillow
 
     - name: Run voice scraping script
       run: |
