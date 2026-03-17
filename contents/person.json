@@ -1,50 +1,50 @@
 {
   "persons": [
     {
-      "name": "Emaさん",
-      "gender": "女性",
+      "name": "Hideさん",
+      "gender": "男性",
       "age": "20代",
-      "period": "3週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260310_151325_group_0.jpg",
-      "url": "https://e-roomjp.com/experiences/ema%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a3%e9%80%b1%e9%96%93/",
-      "advice": "現地の友達を作ることをお勧めします。せっかくフィリピンまで来たのに日本人の友達を作ってしまうと、日本語を話す機会が多くなってしまいます。フィリピンの方は皆とても優しいので、勇気を出して声をかけてみると..."
-    },
-    {
-      "name": "Aoiさん",
-      "gender": "女性",
-      "age": "10代",
       "period": "4週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260310_102903_group_7.jpg",
-      "url": "https://e-roomjp.com/experiences/aoi%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a10%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a4%e9%80%b1%e9%96%93/",
-      "advice": "予習、復習をするとより授業の内容の質が上がり英語力アップに繋がると思いました。英語で英語を学ぶので、品詞の名前を英語で覚えておくといいと思いました。授業で習った単語を異国の生徒さんと話してる時に使って..."
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113349_group_1.jpg",
+      "url": "https://e-roomjp.com/experiences/hide%e3%81%95%e3%82%93%ef%bc%88%e7%94%b7%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a4%e9%80%b1%e9%96%93/",
+      "advice": "正直な感想として、1ヶ月では全然足りないと感じました！最初の2〜3週間でようやく生活に慣れてきたと思ったら、あっという間に卒業の日を迎えてしまいました。英語力をしっかり伸ばしたいのであれば、最低でも2..."
     },
     {
-      "name": "Hannaさん",
+      "name": "Sakiさん",
       "gender": "女性",
-      "age": "40代",
-      "period": "8週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260223_115043_group_1.jpg",
-      "url": "https://e-roomjp.com/experiences/9800-2/",
-      "advice": "食堂のご飯も美味しいですが、即席の味噌汁やふりかけを持ってきた方がいいです。日本の味が恋しくなります。他の国の方とたくさんお話すると英語も上達できるし、韓国語や中国語も少し覚えたりもできます。"
+      "age": "30代",
+      "period": "4週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113254_group_9.jpg",
+      "url": "https://e-roomjp.com/experiences/saki%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a30%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a4%e9%80%b1%e9%96%93/",
+      "advice": "フィリピン留学はマンツーマン授業が多いので、間違いを気にせずたくさん話すことが大切だと思います。わからないことがあれば遠慮せずに先生に質問すると、丁寧に教えてくれます。また、短い留学期間でも毎日英語に..."
     },
     {
-      "name": "Chinaさん",
-      "gender": "女性",
+      "name": "Taichiさん",
+      "gender": "男性",
       "age": "20代",
-      "period": "13週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/02/line_oa_chat_260218_114042_group_2.jpg",
-      "url": "https://e-roomjp.com/experiences/china%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a13%e9%80%b1%e9%96%93/",
-      "advice": "週3回洗濯をしてくれるので大変助かりますが、服が汚れて返ってくることもあります。同じ部屋の人はカラフルなペイントされたみたいになっていました。私はいくつか下着が壊れました。洗濯ネットに入れることをおす..."
+      "period": "4週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113342_group_0.jpg",
+      "url": "https://e-roomjp.com/experiences/taichi%e3%81%95%e3%82%93%ef%bc%88%e7%94%b7%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a4%e9%80%b1%e9%96%93/",
+      "advice": "留学先は、自分が何を求めているのかをよく考えたうえで決めるべきだと思う。費用を抑えて気軽に留学をしたい人にはおすすめできる環境である。ただし、留学費用と満足度はある程度比例するものだとも感じた。そのた..."
+    },
+    {
+      "name": "miwaさん",
+      "gender": "女性",
+      "age": "30代",
+      "period": "4週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/03/C59F03AB-A628-48C6-829A-A38E72B44040.jpg",
+      "url": "https://e-roomjp.com/experiences/miwa%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a30%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a4%e9%80%b1%e9%96%93/",
+      "advice": "留学中は、授業だけでなく日常生活でも積極的に英語を使ってみてください。失敗を恐れず話すことで、英語力はぐんと伸びます。クラスメイトや先生と仲良くなると勉強も楽しくなりますし、休日には自然や街を楽しんで..."
     }
   ],
   "slideImg": [
-    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260310_151325_group_7.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260310_151325_group_6.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260310_102903_group_3.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260310_102903_group_6.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260223_115047_group_6.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260223_115047_group_4.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/02/line_oa_chat_260218_114042_group_1.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/02/line_oa_chat_260218_114055_group_6.jpg"
+    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113349_group_0.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113349_group_3.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113254_group_3.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113254_group_4.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113342_group_4.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113342_group_3.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/03/2F4F823A-5B38-4AC1-8BDB-62BED8CD6C24.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/03/E085CB3B-EB6E-4893-9874-DC16995612E0.jpg"
   ]
 }
