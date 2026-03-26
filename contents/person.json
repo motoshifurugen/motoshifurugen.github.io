@@ -1,6 +1,15 @@
 {
   "persons": [
     {
+      "name": "Mikiさん",
+      "gender": "女性",
+      "age": "20代",
+      "period": "3週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260326_095850_group_6.jpg",
+      "url": "https://e-roomjp.com/experiences/miki%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a3%e9%80%b1%e9%96%93/",
+      "advice": "最初は不安や緊張を感じるかもしれませんが、マネージャーの方や先生、ハウスキーパーの方、学生のみなさんはとても親切なので安心して生活を送れると思います。授業では英語に自信がなくても、間違いを恐れずに積極..."
+    },
+    {
       "name": "Hideさん",
       "gender": "男性",
       "age": "20代",
@@ -26,25 +35,16 @@
       "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113342_group_0.jpg",
       "url": "https://e-roomjp.com/experiences/taichi%e3%81%95%e3%82%93%ef%bc%88%e7%94%b7%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a4%e9%80%b1%e9%96%93/",
       "advice": "留学先は、自分が何を求めているのかをよく考えたうえで決めるべきだと思う。費用を抑えて気軽に留学をしたい人にはおすすめできる環境である。ただし、留学費用と満足度はある程度比例するものだとも感じた。そのた..."
-    },
-    {
-      "name": "miwaさん",
-      "gender": "女性",
-      "age": "30代",
-      "period": "4週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/03/C59F03AB-A628-48C6-829A-A38E72B44040.jpg",
-      "url": "https://e-roomjp.com/experiences/miwa%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a30%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a4%e9%80%b1%e9%96%93/",
-      "advice": "留学中は、授業だけでなく日常生活でも積極的に英語を使ってみてください。失敗を恐れず話すことで、英語力はぐんと伸びます。クラスメイトや先生と仲良くなると勉強も楽しくなりますし、休日には自然や街を楽しんで..."
     }
   ],
   "slideImg": [
+    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260326_095850_group_7.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260326_095850_group_5.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113349_group_0.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113349_group_3.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113254_group_3.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113254_group_4.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113342_group_4.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113342_group_3.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/03/2F4F823A-5B38-4AC1-8BDB-62BED8CD6C24.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/03/E085CB3B-EB6E-4893-9874-DC16995612E0.jpg"
+    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260317_113342_group_3.jpg"
   ]
 }
