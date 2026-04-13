@@ -1,6 +1,15 @@
 {
   "persons": [
     {
+      "name": "Natsuさん",
+      "gender": "女性",
+      "age": "20代",
+      "period": "１２週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260413_174948_group_1.jpg",
+      "url": "https://e-roomjp.com/experiences/natsu%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a%ef%bc%91%ef%bc%92%e9%80%b1%e9%96%93/",
+      "advice": "最初は慣れない環境で不安もありましたが、積極的にコミュニケーションを取ることで多くの出会いに恵まれ、英語への苦手意識も薄れました。この経験は語学力だけでなく、今後の人生にとっても大きな財産です。\n勉強..."
+    },
+    {
       "name": "Erikaさん",
       "gender": "女性",
       "age": "20代",
@@ -26,25 +35,16 @@
       "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152755_group_4.jpg",
       "url": "https://e-roomjp.com/experiences/ayumi%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a10%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a6%e9%80%b1%e9%96%93/",
       "advice": "コマ数の少ないコースは、自主学習の時間が十分に確保できる反面、英語を話す機会は少なくなりがちです。そのため、休み時間や放課後に積極的に英語を話し、自ら使う機会を増やすことが大切だと感じました。また、予..."
-    },
-    {
-      "name": "Hirotoさん",
-      "gender": "男性",
-      "age": "10代",
-      "period": "4週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260326_095916_group_2.jpg",
-      "url": "https://e-roomjp.com/experiences/hiroto%e3%81%95%e3%82%93%ef%bc%88%e7%94%b7%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a10%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a4%e9%80%b1%e9%96%93-2/",
-      "advice": "授業に関しては自分の目的やレベルに合わせて進めることができ、食事に関してはほとんど問題なく、治安に関しても安全、移動面も問題なく、近くに買い物する場所や飲食店も揃っていて意外と気楽に過ごすことができる..."
     }
   ],
   "slideImg": [
+    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260413_174948_group_9.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260413_174948_group_2.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152739.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152732.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152717_group_6.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152717_group_0.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152755_group_3.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152755_group_0.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260326_095908_group_3.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/03/line_oa_chat_260326_095908_group_1.jpg"
+    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152755_group_0.jpg"
   ]
 }
