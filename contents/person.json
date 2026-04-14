@@ -1,50 +1,50 @@
 {
   "persons": [
     {
-      "name": "Natsuさん",
+      "name": "Mihoさん",
       "gender": "女性",
       "age": "20代",
-      "period": "１２週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260413_174948_group_1.jpg",
-      "url": "https://e-roomjp.com/experiences/natsu%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a%ef%bc%91%ef%bc%92%e9%80%b1%e9%96%93/",
-      "advice": "最初は慣れない環境で不安もありましたが、積極的にコミュニケーションを取ることで多くの出会いに恵まれ、英語への苦手意識も薄れました。この経験は語学力だけでなく、今後の人生にとっても大きな財産です。\n勉強..."
+      "period": "8週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090515_group_3.jpg",
+      "url": "https://e-roomjp.com/experiences/miho%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a8%e9%80%b1%e9%96%93/",
+      "advice": "スパルタコースはありますが、実際にスパルタコースをとっている生徒はほぼいないようでした。もしスパルタコースの友達と切磋琢磨しながら勉強したい/みんな勉強しているから勉強するのは当たり前といった学習環境..."
     },
     {
-      "name": "Erikaさん",
+      "name": "Missyさん",
+      "gender": "女性",
+      "age": "３０代",
+      "period": "４週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_100609_group_1.jpg",
+      "url": "https://e-roomjp.com/experiences/missy%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a%ef%bc%93%ef%bc%90%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a%ef%bc%94%e9%80%b1/",
+      "advice": "日本でやっておくといいこと\n・文法の復習(日本語のほうが理解しやすい場合が多いです)\n・英語の文法用語の暗記(これが分からないと先生の説明も理解が追いつかないです)"
+    },
+    {
+      "name": "Minnieさん",
       "gender": "女性",
       "age": "20代",
       "period": "４週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152728.jpg",
-      "url": "https://e-roomjp.com/experiences/erika%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a%ef%bc%94%e9%80%b1%e9%96%93/",
-      "advice": "値段が安いのにも関わらずこのクオリティは申し分ないです。不安なことが沢山あるかと思いますが、マネージャーとも近い距離に入れますし生徒同士仲良くなることも容易です。どんな英語レベルだったとしても先生は親..."
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090526_group_0.jpg",
+      "url": "https://e-roomjp.com/experiences/minnie%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a%ef%bc%94%e9%80%b1%e9%96%93/",
+      "advice": "価格なみと考え、期待値高くはしない方がいいかなと思います。時期にもよりますが、80%くらい日本人は多いです。マンツーマンなので、自分のやりたい事が明確な場合は早い段階で先生とすり合わせをするべきです。"
     },
     {
-      "name": "Akoさん",
-      "gender": "女性",
+      "name": "HIROさん",
+      "gender": "男性",
       "age": "20代",
-      "period": "４週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152717_group_7.jpg",
-      "url": "https://e-roomjp.com/experiences/ako%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a%ef%bc%94%e9%80%b1%e9%96%93/",
-      "advice": "勉強に集中したい方はもちろん、平日でもリフレッシュしたい方にはぴったりな環境だと思います。勉強に全振りして自習室や自分の部屋にこもるのではなく、イールームには日本以外に、中国、台湾、韓国から来ている人..."
-    },
-    {
-      "name": "Ayumiさん",
-      "gender": "女性",
-      "age": "10代",
-      "period": "6週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152755_group_4.jpg",
-      "url": "https://e-roomjp.com/experiences/ayumi%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a10%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a6%e9%80%b1%e9%96%93/",
-      "advice": "コマ数の少ないコースは、自主学習の時間が十分に確保できる反面、英語を話す機会は少なくなりがちです。そのため、休み時間や放課後に積極的に英語を話し、自ら使う機会を増やすことが大切だと感じました。また、予..."
+      "period": "８週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090504_group_9.jpg",
+      "url": "https://e-roomjp.com/experiences/hiro%e3%81%95%e3%82%93%ef%bc%88%e7%94%b7%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a%ef%bc%98%e9%80%b1%e9%96%93/",
+      "advice": "韓国、ベトナム、台湾を中心に様々な国から同じ志をもって集まった生徒達が沢山いてレベルも人それぞれですがどんな理由で学びにきていたとしても誰もそれを否定しません。むしろアドバイスをくれる人の方が多く、他..."
     }
   ],
   "slideImg": [
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260413_174948_group_9.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260413_174948_group_2.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152739.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152732.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152717_group_6.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152717_group_0.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152755_group_3.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260408_152755_group_0.jpg"
+    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090515_group_5.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090515_group_7.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_100609_group_8.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_100609_group_7.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090526_group_8.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090526_group_7.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090504_group_5.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090504_group_0.jpg"
   ]
 }
