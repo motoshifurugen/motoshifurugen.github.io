@@ -1,6 +1,24 @@
 {
   "persons": [
     {
+      "name": "Mizuhoさん",
+      "gender": "女性",
+      "age": "30代",
+      "period": "12週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_155223_group_5.jpg",
+      "url": "https://e-roomjp.com/experiences/mizuho%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a30%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a12%e9%80%b1%e9%96%93/",
+      "advice": "日本でもっと英語の映画や本に触れ、英語に慣れておけば良かったと思います。初めての英語環境で、最初は頭も耳も疲れました。\nまた、食事にも飽きてくるので、日本のカップ麺やインスタント食品を持参すれば良かっ..."
+    },
+    {
+      "name": "Ikuoさん",
+      "gender": "男性",
+      "age": "70代",
+      "period": "4週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_152942_group_0.jpg",
+      "url": "https://e-roomjp.com/experiences/ikuo%e3%81%95%e3%82%93%ef%bc%88%e7%94%b7%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a70%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a4%e9%80%b1%e9%96%93/",
+      "advice": "私の場合、年齢も高く仕事もしていないので、同じような人にアドバイスを送りたいと思います。掃除、洗濯、食事付きで英語の勉強仕放題、ちょっとした観光もできて、費用もそれほど高くありません。若い学生や社会人..."
+    },
+    {
       "name": "Mihoさん",
       "gender": "女性",
       "age": "20代",
@@ -17,34 +35,16 @@
       "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_100609_group_1.jpg",
       "url": "https://e-roomjp.com/experiences/missy%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a%ef%bc%93%ef%bc%90%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a%ef%bc%94%e9%80%b1/",
       "advice": "日本でやっておくといいこと\n・文法の復習(日本語のほうが理解しやすい場合が多いです)\n・英語の文法用語の暗記(これが分からないと先生の説明も理解が追いつかないです)"
-    },
-    {
-      "name": "Minnieさん",
-      "gender": "女性",
-      "age": "20代",
-      "period": "４週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090526_group_0.jpg",
-      "url": "https://e-roomjp.com/experiences/minnie%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a%ef%bc%94%e9%80%b1%e9%96%93/",
-      "advice": "価格なみと考え、期待値高くはしない方がいいかなと思います。時期にもよりますが、80%くらい日本人は多いです。マンツーマンなので、自分のやりたい事が明確な場合は早い段階で先生とすり合わせをするべきです。"
-    },
-    {
-      "name": "HIROさん",
-      "gender": "男性",
-      "age": "20代",
-      "period": "８週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090504_group_9.jpg",
-      "url": "https://e-roomjp.com/experiences/hiro%e3%81%95%e3%82%93%ef%bc%88%e7%94%b7%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a%ef%bc%98%e9%80%b1%e9%96%93/",
-      "advice": "韓国、ベトナム、台湾を中心に様々な国から同じ志をもって集まった生徒達が沢山いてレベルも人それぞれですがどんな理由で学びにきていたとしても誰もそれを否定しません。むしろアドバイスをくれる人の方が多く、他..."
     }
   ],
   "slideImg": [
+    "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_155223_group_4.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_155223_group_1.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_152942_group_7.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_152942_group_2.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090515_group_5.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090515_group_7.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_100609_group_8.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_100609_group_7.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090526_group_8.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090526_group_7.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090504_group_5.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090504_group_0.jpg"
+    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_100609_group_7.jpg"
   ]
 }
