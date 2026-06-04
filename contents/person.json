@@ -1,6 +1,15 @@
 {
   "persons": [
     {
+      "name": "Ryuさん",
+      "gender": "男性",
+      "age": "20代",
+      "period": "８週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260604_163119_group_1.jpg",
+      "url": "https://e-roomjp.com/experiences/ryu%e3%81%95%e3%82%93%ef%bc%88%e7%94%b7%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a%ef%bc%98%e9%80%b1%e9%96%93/",
+      "advice": "まずは基礎的な英文法等などを十分に理解するとまでは言わないが、頭に入れておくと授業にとりかかりやすいかなと思います。\n時間の使い方で英語力の向上は変わっていくと思います。と言うのも5-6コマ取っている..."
+    },
+    {
       "name": "Mizuhoさん",
       "gender": "女性",
       "age": "30代",
@@ -26,25 +35,16 @@
       "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090515_group_3.jpg",
       "url": "https://e-roomjp.com/experiences/miho%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a8%e9%80%b1%e9%96%93/",
       "advice": "スパルタコースはありますが、実際にスパルタコースをとっている生徒はほぼいないようでした。もしスパルタコースの友達と切磋琢磨しながら勉強したい/みんな勉強しているから勉強するのは当たり前といった学習環境..."
-    },
-    {
-      "name": "Missyさん",
-      "gender": "女性",
-      "age": "３０代",
-      "period": "４週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_100609_group_1.jpg",
-      "url": "https://e-roomjp.com/experiences/missy%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a%ef%bc%93%ef%bc%90%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a%ef%bc%94%e9%80%b1/",
-      "advice": "日本でやっておくといいこと\n・文法の復習(日本語のほうが理解しやすい場合が多いです)\n・英語の文法用語の暗記(これが分からないと先生の説明も理解が追いつかないです)"
     }
   ],
   "slideImg": [
+    "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260604_163119_group_6.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260604_163119_group_9.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_155223_group_4.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_155223_group_1.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_152942_group_7.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_152942_group_2.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090515_group_5.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090515_group_7.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_100609_group_8.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_100609_group_7.jpg"
+    "https://e-roomjp.com/wp-content/uploads/2026/04/line_oa_chat_260414_090515_group_7.jpg"
   ]
 }
