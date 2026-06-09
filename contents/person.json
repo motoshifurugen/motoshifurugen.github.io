@@ -1,6 +1,15 @@
 {
   "persons": [
     {
+      "name": "Yusunさん",
+      "gender": "女性",
+      "age": "20代",
+      "period": "8週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260609_113309.jpg",
+      "url": "https://e-roomjp.com/experiences/yusun%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a8%e9%80%b1%e9%96%93/",
+      "advice": "イールームは自分のやりたい勉強に合わせて柔軟に内容を変えてもらえるので、受け身にならず「これがしたい」と積極的に伝えるのがおすすめです。学校の周辺は飲食店が充実しているので放課後のリフレッシュには困り..."
+    },
+    {
       "name": "Shokoさん",
       "gender": "女性",
       "age": "30代",
@@ -26,25 +35,16 @@
       "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_155223_group_5.jpg",
       "url": "https://e-roomjp.com/experiences/mizuho%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a30%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a12%e9%80%b1%e9%96%93/",
       "advice": "日本でもっと英語の映画や本に触れ、英語に慣れておけば良かったと思います。初めての英語環境で、最初は頭も耳も疲れました。\nまた、食事にも飽きてくるので、日本のカップ麺やインスタント食品を持参すれば良かっ..."
-    },
-    {
-      "name": "Ikuoさん",
-      "gender": "男性",
-      "age": "70代",
-      "period": "4週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_152942_group_0.jpg",
-      "url": "https://e-roomjp.com/experiences/ikuo%e3%81%95%e3%82%93%ef%bc%88%e7%94%b7%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a70%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a4%e9%80%b1%e9%96%93/",
-      "advice": "私の場合、年齢も高く仕事もしていないので、同じような人にアドバイスを送りたいと思います。掃除、洗濯、食事付きで英語の勉強仕放題、ちょっとした観光もできて、費用もそれほど高くありません。若い学生や社会人..."
     }
   ],
   "slideImg": [
+    "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260609_113311.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260609_113317_group_0.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260608_114035_group_3.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260608_114035_group_9.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260604_163119_group_6.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260604_163119_group_9.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_155223_group_4.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_155223_group_1.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_152942_group_7.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_152942_group_2.jpg"
+    "https://e-roomjp.com/wp-content/uploads/2026/05/line_oa_chat_260505_155223_group_1.jpg"
   ]
 }
