@@ -1,6 +1,24 @@
 {
   "persons": [
     {
+      "name": "Hinaさん",
+      "gender": "女性",
+      "age": "30代",
+      "period": "12週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260624_155817_group_4.jpg",
+      "url": "https://e-roomjp.com/experiences/hina%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a30%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a12%e9%80%b1%e9%96%93/",
+      "advice": "留学前に英単語や簡単な英文法を少し勉強しておくと、授業が理解しやすくなると思います。私は最初、英語がなかなか聞き取れず苦労しましたが、毎日授業を受けているうちに少しずつ慣れていきました。日本人の友達と..."
+    },
+    {
+      "name": "Nancyさん",
+      "gender": "女性",
+      "age": "30代",
+      "period": "12週間",
+      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260624_155821.jpg",
+      "url": "https://e-roomjp.com/experiences/nancy%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a30%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a12%e9%80%b1%e9%96%93/",
+      "advice": "留学中は英語が思うように話せなかったり、文化の違いに戸惑ったりすることもあると思います。その一つひとつの経験が必ず自分の成長につながっていると私は感じました。間違いを恐れず積極的に英語を使い、多くの人..."
+    },
+    {
       "name": "Nabさん",
       "gender": "男性",
       "age": "20代",
@@ -17,34 +35,16 @@
       "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260609_113309.jpg",
       "url": "https://e-roomjp.com/experiences/yusun%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a8%e9%80%b1%e9%96%93/",
       "advice": "イールームは自分のやりたい勉強に合わせて柔軟に内容を変えてもらえるので、受け身にならず「これがしたい」と積極的に伝えるのがおすすめです。学校の周辺は飲食店が充実しているので放課後のリフレッシュには困り..."
-    },
-    {
-      "name": "Shokoさん",
-      "gender": "女性",
-      "age": "30代",
-      "period": "4週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260608_114035_group_7.jpg",
-      "url": "https://e-roomjp.com/experiences/shoko%e3%81%95%e3%82%93%ef%bc%88%e5%a5%b3%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a30%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a4%e9%80%b1%e9%96%93/",
-      "advice": "短期間でも得られるものは一生ものです！留学にチャレンジしてみたいのであれば、ぜひやってみてはいかがでしょうか！"
-    },
-    {
-      "name": "Ryuさん",
-      "gender": "男性",
-      "age": "20代",
-      "period": "８週間",
-      "mainImg_src": "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260604_163119_group_1.jpg",
-      "url": "https://e-roomjp.com/experiences/ryu%e3%81%95%e3%82%93%ef%bc%88%e7%94%b7%e6%80%a7%ef%bc%89%e3%80%80%e5%b9%b4%e9%bd%a2%ef%bc%9a20%e4%bb%a3%e3%80%80%e7%95%99%e5%ad%a6%e6%9c%9f%e9%96%93%ef%bc%9a%ef%bc%98%e9%80%b1%e9%96%93/",
-      "advice": "まずは基礎的な英文法等などを十分に理解するとまでは言わないが、頭に入れておくと授業にとりかかりやすいかなと思います。\n時間の使い方で英語力の向上は変わっていくと思います。と言うのも5-6コマ取っている..."
     }
   ],
   "slideImg": [
+    "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260624_155817_group_8.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260624_155817_group_0.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/06/IMG_20260412_083338_811.jpg",
+    "https://e-roomjp.com/wp-content/uploads/2026/06/IMG_20260405_205242_475.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260610_095751_group_8.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260610_095751_group_6.jpg",
     "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260609_113311.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260609_113317_group_0.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260608_114035_group_3.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260608_114035_group_9.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260604_163119_group_6.jpg",
-    "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260604_163119_group_9.jpg"
+    "https://e-roomjp.com/wp-content/uploads/2026/06/line_oa_chat_260609_113317_group_0.jpg"
   ]
 }
